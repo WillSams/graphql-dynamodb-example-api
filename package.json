@@ -1,0 +1,58 @@
+{
+  "name": "backend-graphql-api",
+  "version": "0.9.5",
+  "description": "Example API using GraphQL and AWS DynamoDB SDK.",
+  "main": "bootstrap.js",
+  "dependencies": {
+    "apollo-server-core": "^3.6.1",
+    "apollo-server-express": "^3.6.1",
+    "aws-sdk": "^2.1054.0",
+    "bcrypt": "^5.0.1",
+    "body-parser": "^1.19.1",
+    "cors": "^2.8.5",
+    "express": "^4.17.2",
+    "graphql": "^15.8.0",
+    "jsonwebtoken": "^8.5.1",
+    "uninstall": "^0.0.0",
+    "uuid": "^8.3.2"
+  },
+  "scripts": {
+    "start": "node src/bootstrap.js",
+    "test": "NODE_ENV=test ./specs/database/clean_db.sh && mocha specs/**/*.spec.js --recursive --timeout 10000",
+    "debug": "node --inspect-brk=0.0.0.0:9229 src/bootstrap.js",
+    "dev": "nodemon src/bootstrap.js",
+    "lint": "eslint . --ignore-pattern 'public/'",
+    "lint-fix": "eslint src/**/*.js --fix",
+    "seed": "node src/seed.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "chai": "^4.3.4",
+    "chai-as-promised": "^7.1.1",
+    "chai-http": "^4.3.0",
+    "cypress": "^9.2.1",
+    "eslint": "^8.7.0",
+    "faker": "^4.1.0",
+    "husky": "^7.0.4",
+    "lint-staged": "^12.1.7",
+    "mocha": "^9.1.3",
+    "nodemon": "^2.0.15",
+    "prettier": "^2.5.1"
+  },
+  "lint-staged": {
+    "*.{js,ts}": [
+      "prettier --single-quote --trailing-comma es5 --write",
+      "git add"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "prettier": {
+    "singleQuote": true,
+    "trailingComma": "es5"
+  }
+}

@@ -1,0 +1,378 @@
+{
+  "ModelName": "Southern JUCO Hockey League Data Model",
+  "ModelMetadata": {
+    "Author": "Will Sams",
+    "Version": "3.0",
+    "AWSService": "Amazon DynamoDB"
+  },
+  "DataModel": [
+    {
+      "TableName": "League",
+      "KeyAttributes": {
+        "PartitionKey": {
+          "AttributeName": "Id",
+          "AttributeType": "S"
+        },
+        "SortKey": {
+          "AttributeName": "Metadata",
+          "AttributeType": "S"
+        }
+      },
+      "NonKeyAttributes": [
+        {
+          "AttributeName": "GameDay",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "WinLoss",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "TeamName",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "Abbreviation",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "Arena",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "PlayerName",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "Position",
+          "AttributeType": "S"
+        }
+      ],
+      "TableFacets": [
+        {
+          "FacetName": "LeagueTeam",
+          "KeyAttributeAlias": {
+            "PartitionKeyAlias": "TeamId",
+            "SortKeyAlias": "Metadata"
+          },
+          "NonKeyAttributes": [
+            "TeamName",
+            "Abbreviation",
+            "Arena"
+          ],
+          "TableData": [
+            {
+              "Id": {
+                "S": "1"
+              },
+              "Metadata": {
+                "S": "Team"
+              },
+              "TeamName": {
+                "S": "Augusta GA JUCO"
+              },
+              "Abbreviation": {
+                "S": "AGAJ"
+              },
+              "Arena": {
+                "S": "Milledgeville Ice Center"
+              }
+            },
+            {
+              "Id": {
+                "S": "2"
+              },
+              "Metadata": {
+                "S": "Team"
+              },
+              "TeamName": {
+                "S": "Chattanooga TN JUCO"
+              },
+              "Abbreviation": {
+                "S": "CTNJ"
+              },
+              "Arena": {
+                "S": "Chattanooga Arena"
+              }
+            },
+            {
+              "Id": {
+                "S": "3"
+              },
+              "Metadata": {
+                "S": "Team"
+              },
+              "TeamName": {
+                "S": "Jackson MS JUCO"
+              },
+              "Abbreviation": {
+                "S": "JMSJ"
+              },
+              "Arena": {
+                "S": "Raymond Sports Center"
+              }
+            },
+            {
+              "Id": {
+                "S": "4"
+              },
+              "Metadata": {
+                "S": "Team"
+              },
+              "TeamName": {
+                "S": "Mobile AL JUCO"
+              },
+              "Abbreviation": {
+                "S": "MOBJ"
+              },
+              "Arena": {
+                "S": "Mobile Ice Center"
+              }
+            },
+            {
+              "Id": {
+                "S": "5"
+              },
+              "Metadata": {
+                "S": "Team"
+              },
+              "TeamName": {
+                "S": "Montgomery AL JUCO"
+              },
+              "Abbreviation": {
+                "S": "MONJ"
+              },
+              "Arena": {
+                "S": "Alexander City Arena"
+              }
+            },
+            {
+              "Id": {
+                "S": "6"
+              },
+              "Metadata": {
+                "S": "Team"
+              },
+              "TeamName": {
+                "S": "New Orleans LA JUCO"
+              },
+              "Abbreviation": {
+                "S": "NOLAJ"
+              },
+              "Arena": {
+                "S": "New Orleans Arena"
+              }
+            },
+            {
+              "Id": {
+                "S": "7"
+              },
+              "Metadata": {
+                "S": "Team"
+              },
+              "TeamName": {
+                "S": "Spartanburg SC JUCO"
+              },
+              "Abbreviation": {
+                "S": "SSCJ"
+              },
+              "Arena": {
+                "S": "Spartanburg Memorial Arena"
+              }
+            }
+          ]
+        }
+      ],
+      "LocalSecondaryIndexes": [],
+      "GlobalSecondaryIndexes": [
+        {
+          "IndexName": "MetadataIndex",
+          "KeyAttributes": {
+            "PartitionKey": {
+              "AttributeName": "Metadata",
+              "AttributeType": "S"
+            }
+          },
+          "Projection": {
+            "ProjectionType": "ALL"
+          }
+        },
+        {
+          "IndexName": "MetadataTeamIndex",
+          "KeyAttributes": {
+            "PartitionKey": {
+              "AttributeName": "Metadata",
+              "AttributeType": "S"
+            },
+            "SortKey": {
+              "AttributeName": "TeamName",
+              "AttributeType": "S"
+            }
+          },
+          "Projection": {
+            "ProjectionType": "ALL"
+          }
+        },
+        {
+          "IndexName": "MetadataPlayerIndex",
+          "KeyAttributes": {
+            "PartitionKey": {
+              "AttributeName": "Metadata",
+              "AttributeType": "S"
+            },
+            "SortKey": {
+              "AttributeName": "PlayerName",
+              "AttributeType": "S"
+            }
+          },
+          "Projection": {
+            "ProjectionType": "ALL"
+          }
+        },
+        {
+          "IndexName": "MetadataGameIndex",
+          "KeyAttributes": {
+            "PartitionKey": {
+              "AttributeName": "Metadata",
+              "AttributeType": "S"
+            },
+            "SortKey": {
+              "AttributeName": "GameDay",
+              "AttributeType": "S"
+            }
+          },
+          "Projection": {
+            "ProjectionType": "ALL"
+          }
+        }
+      ],
+      "TableData": [
+        {
+          "Id": {
+            "S": "1"
+          },
+          "Metadata": {
+            "S": "Player-01"
+          },
+          "PlayerName": {
+            "S": "John Doe"
+          },
+          "Position": {
+            "S": "C"
+          }
+        },
+        {
+          "Id": {
+            "S": "1"
+          },
+          "Metadata": {
+            "S": "Player-02"
+          },
+          "PlayerName": {
+            "S": "Jane Smith"
+          },
+          "Position": {
+            "S": "RW"
+          }
+        },
+        {
+          "Id": {
+            "S": "1"
+          },
+          "Metadata": {
+            "S": "Player-03"
+          },
+          "PlayerName": {
+            "S": "John Smith"
+          },
+          "Position": {
+            "S": "LD"
+          }
+        },
+        {
+          "Id": {
+            "S": "2"
+          },
+          "Metadata": {
+            "S": "Player-04"
+          },
+          "PlayerName": {
+            "S": "Jane Doe"
+          },
+          "Position": {
+            "S": "C"
+          }
+        },
+        {
+          "Id": {
+            "S": "2"
+          },
+          "Metadata": {
+            "S": "Player-05"
+          },
+          "PlayerName": {
+            "S": "Joey Doe"
+          },
+          "Position": {
+            "S": "RD"
+          }
+        },
+        {
+          "Id": {
+            "S": "1"
+          },
+          "Metadata": {
+            "S": "Game-AGAJ-SSCJ-01"
+          },
+          "GameDay": {
+            "S": "Oct-09-2018"
+          },
+          "WinLoss": {
+            "S": "Loss"
+          }
+        },
+        {
+          "Id": {
+            "S": "7"
+          },
+          "Metadata": {
+            "S": "Game-SSCJ-AGAJ-01"
+          },
+          "GameDay": {
+            "S": "Oct-09-2018"
+          },
+          "WinLoss": {
+            "S": "Win"
+          }
+        }
+      ],
+      "BillingMode": "PROVISIONED",
+      "ProvisionedCapacitySettings": {
+        "ProvisionedThroughput": {
+          "ReadCapacityUnits": 5,
+          "WriteCapacityUnits": 5
+        },
+        "AutoScalingRead": {
+          "ScalableTargetRequest": {
+            "MinCapacity": 1,
+            "MaxCapacity": 10,
+            "ServiceRole": "AWSServiceRoleForApplicationAutoScaling_DynamoDBTable"
+          },
+          "ScalingPolicyConfiguration": {
+            "TargetValue": 70
+          }
+        },
+        "AutoScalingWrite": {
+          "ScalableTargetRequest": {
+            "MinCapacity": 1,
+            "MaxCapacity": 10,
+            "ServiceRole": "AWSServiceRoleForApplicationAutoScaling_DynamoDBTable"
+          },
+          "ScalingPolicyConfiguration": {
+            "TargetValue": 70
+          }
+        }
+      }
+    }
+  ]
+}

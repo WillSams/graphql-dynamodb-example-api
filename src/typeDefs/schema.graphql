@@ -1,0 +1,57 @@
+﻿schema {
+  query: Query
+}
+
+type Team {
+  Id: String
+  Metadata: String
+  Abbreviation: String
+  TeamName: String
+  Arena: String
+}
+
+type Player {
+  Id: String
+  Metadata: String
+  PlayerName: String
+  Position: String
+}
+
+type Game {
+  Id: String
+  Metadata: String
+  GameDay: String
+  WinLoss: String
+}
+
+input CreateTeamInput {
+  GameDay: String
+  Id: String!
+  Metadata: String!
+  WinLoss: String
+}
+
+input DeleteTeamInput {
+  Id: String!
+  Metadata: String!
+}
+
+input UpdateTeamInput {
+  GameDay: String
+  Id: String!
+  Metadata: String!
+  WinLoss: String
+}
+
+type Mutation {
+  createTeam(input: CreateTeamInput!): Team
+  deleteTeam(input: DeleteTeamInput!): Team
+  updateTeam(input: UpdateTeamInput!): Team
+}
+
+type Query {
+  getTeam(teamId: String!): Team
+  listTeams: [Team]
+  listTeamPlayers(teamId: String!): [Player]
+  listTeamGames(teamId: String!): [Game]
+}

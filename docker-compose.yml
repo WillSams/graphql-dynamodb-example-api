@@ -1,0 +1,9 @@
+version: "3"
+services:
+  database:
+    container_name: example-db
+    image: amazon/dynamodb-local
+    ports:
+      - "${DYNAMODB_PORT}:8000"
+    volumes:
+      - ./.dynamodb/database:/data/db
