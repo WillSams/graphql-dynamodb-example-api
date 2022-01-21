@@ -1,4 +1,4 @@
-# Example GraphQL API using Express JS, Apollow Server, and Local Amazon DynamoDb
+# Example GraphQL API using Express JS, Apollo Server, and Local Amazon DynamoDb
 
 WIP
 
