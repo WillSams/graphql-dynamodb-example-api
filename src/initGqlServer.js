@@ -1,14 +1,10 @@
 const { ApolloServer } = require('apollo-server-express');
-const { ApolloServerPluginDrainHttpServer } = require('apollo-server-core');
 const { createServer } = require('http');
 
 const typeDefs = require('./typeDefs');
 const resolvers = require('./resolvers');
 
-const { getHostDomain } = require('./utils/server');
-
 const initGqlServer = async app => {
-  const httpServer = createServer(app);
   const server = new ApolloServer({
     typeDefs,
     resolvers,
