@@ -46,13 +46,13 @@ With Docker installed, execute `docker-compose pull && docker-compose up -d`.  E
 ```bash
 aws dynamodb describe-table \
   --endpoint-url http://localhost:${DYNAMODB_PORT} \
-  --table-name League \
+  --table-name League-development \
   --profile localhost-user \
   --region localhost
 
 aws dynamodb query \
   --endpoint-url http://localhost:${DYNAMODB_PORT} \
-  --table-name League \
+  --table-name League-development \
   --index-name 'MetadataIndex' \
   --projection-expression 'Metadata, TeamName, Abbreviation, Arena' \
   --key-condition-expression "Metadata = :v1" \
