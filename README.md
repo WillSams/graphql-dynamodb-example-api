@@ -2,6 +2,12 @@
 
 Example API using Express JS, Apollo Server, and Local Amazon DynamoDb.
 
+TODO:
+- Write more tests.
+- Add token-based authentication.
+- Add CI/CD w/ CircleCI.
+- Create deployment container and ship it AWS Elastic Container Registry.
+
 ## Pre-requisites
 
 The installation instructions are targeting Debian-based distros (Ubuntu, Linux Mint, etc.) but they can also work under [Windows using the Windows Subsystem for Linux (WSL)](https://docs.microsoft.com/en-us/windows/wsl/about).  The following tools need to be installed:
