@@ -3,16 +3,11 @@ process.env.NODE_ENV = 'test';
 const chai = require('chai');
 const expect = chai.expect;
 
-const { createGame } = require('../../../src/resolvers/mutations')
-const { reseedDb, removeDbTestData } = require('../../../specs');
+const { createGame } = require('../../../src/resolvers/mutations');
 
 chai.should();
 
-before(async () => await reseedDb());
-after(async () => await removeDbTestData());
-
 describe('Resolvers - Mutation', () => {
-
   const params = {
     teamId: 'test-team-4',
     gameId: 'Game-123',
@@ -21,7 +16,8 @@ describe('Resolvers - Mutation', () => {
   };
 
   it('`createGame` mutation should create game', async () => {
-    const result = await createGame(null, { input: { ...params } }).then(data => data);
+    const result = await createGame(null, { input: { ...params } })
+      .then(data => data);
 
     result.should.have.property('Id');
     expect(result.Id).to.equal(params.teamId);

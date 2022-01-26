@@ -1,13 +1,14 @@
 process.env.NODE_ENV = 'test';
 
 const { spawn } = require('child_process');
+const { sleep } = require('sleep');
 
 const { createGame, createPlayer, createTeam } = require('../src/resolvers/mutations');
 
 const teams = [
-  { teamId: 'test-team-1', teamName: 'Test Team 1', abbreviation: 'TT01', arena: 'Test Team 1 Arena' },
-  { teamId: 'test-team-2', teamName: 'Test Team 2', abbreviation: 'TT02', arena: 'Test Team 2 Arena' },
-  { teamId: 'test-team-3', teamName: 'Test Team 3', abbreviation: 'TT03', arena: 'Test Team 3 Arena' },
+  { teamId: 'test-team-1', teamName: 'Test Team 1', arena: 'Test Team 1 Arena' },
+  { teamId: 'test-team-2', teamName: 'Test Team 2', arena: 'Test Team 2 Arena' },
+  { teamId: 'test-team-3', teamName: 'Test Team 3', arena: 'Test Team 3 Arena' },
 ];
 
 const players = [
@@ -27,7 +28,7 @@ const players = [
     teamId: 'test-team-2',
     playerId: 'Player-789',
     playerName: 'Test Player4',
-    position: 'RD',
+    position: 'RB',
   },
 ];
 
@@ -40,19 +41,21 @@ const games = [
 
 ];
 
-const reseedDb = async () => {
+const removeDbTestData = () => {
+  sleep(2);
+  spawn(`${__dirname}/clean_db.sh`);
+  sleep(2);
+};
+
+const reseedDb = () => {
+  removeDbTestData();
+
   teams.map(input => createTeam(null, { input }));
   players.map(input => createPlayer(null, { input }));
   games.map(input => createGame(null, { input }));
 };
 
-const removeDbTestData = async () => {
-  await new Promise((resolve) => setTimeout(resolve, 150));
-  spawn(`${__dirname}/database/clean_db.sh`);
-  await new Promise((resolve) => setTimeout(resolve, 150));
-};
-
 module.exports = {
   reseedDb,
   removeDbTestData,
-}
+};

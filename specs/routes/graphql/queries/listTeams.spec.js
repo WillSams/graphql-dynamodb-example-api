@@ -4,17 +4,17 @@ const chai = require('chai');
 const expect = chai.expect;
 
 const bootstrap = require('../../../../src/bootstrap');
+const { reseedDb, } = require('../../../../specs');
 
 chai.use(require('chai-http'));
 chai.should();
 
-const { reseedDb } = require('../../../../specs');
+describe('Route - Queries - /api/graphql', () => {
+  before(() => reseedDb());
 
-describe('Route - Queries - /graphql', () => {
-  before(async () => reseedDb());
   it('`listTeams` query should retrieve all teams', done => {
     chai.request(bootstrap)
-      .post('/graphql')
+      .post('/api/graphql')
       .send({
         query: `
         query ListTeams {
@@ -22,7 +22,6 @@ describe('Route - Queries - /graphql', () => {
             Id
             Metadata
             TeamName
-            Abbreviation
             Arena
           }
         }`,

@@ -3,15 +3,16 @@ process.env.NODE_ENV = 'test';
 const chai = require('chai');
 const expect = chai.expect;
 
+const { getGame } = require('../../../src/resolvers/queries');
+const { reseedDb } = require('../../../specs');
+
 chai.should();
 
-const { getGame } = require('../../../src/resolvers/queries');
-
-const { reseedDb } = require('../../../specs');
-before(async () => reseedDb());
-
 describe('Resolvers - Queries', () => {
+  before(() => reseedDb());
+
   const params = { teamId: 'test-team-3', gameId: 'Game-3' };
+
   it('`getGame` query should retrieve game', async () => {
     const result = await getGame(null, { ...params }).then(data => data);
 

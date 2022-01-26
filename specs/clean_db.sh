@@ -1,18 +1,18 @@
 #!/bin/sh
 
+TABLE_NAME=League-test
+
 # Delete table if it already exists
 aws dynamodb delete-table \
     --endpoint-url http://localhost:8042 \
-    --table-name League-test \
+    --table-name $TABLE_NAME \
     --profile localhost-user \
     --region localhost
-
-sleep 5
 
 # Creates the table
 aws dynamodb create-table \
     --endpoint-url http://localhost:8042 \
-    --table-name League-test \
+    --table-name $TABLE_NAME \
     --attribute-definitions \
         AttributeName=Id,AttributeType=S \
         AttributeName=Metadata,AttributeType=S \
@@ -77,12 +77,5 @@ aws dynamodb create-table \
                 }
             }
         ]" \
-    --profile localhost-user \
-    --region localhost
-
-# show table details
-aws dynamodb describe-table \
-    --endpoint-url http://localhost:8042 \
-    --table-name League-test \
     --profile localhost-user \
     --region localhost

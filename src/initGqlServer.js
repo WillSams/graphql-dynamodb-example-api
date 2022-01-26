@@ -5,6 +5,7 @@ const typeDefs = require('./typeDefs');
 const resolvers = require('./resolvers');
 
 const initGqlServer = async app => {
+  const httpServer = createServer(app);
   const server = new ApolloServer({
     typeDefs,
     resolvers,
@@ -14,7 +15,7 @@ const initGqlServer = async app => {
 
   const apolloRegistration = {
     app,
-    path: '/graphql',
+    path: '/api/graphql',
     cors: true,
     bodyParserConfig: true,
   };

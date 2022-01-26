@@ -1,5 +1,5 @@
-const tableName = `League-${process.env.NODE_ENV}`
-console.log(tableName)
+const tableName = `League-${process.env.NODE_ENV}`;
+console.log(tableName);
 
 const Team = {
   get: ({ teamId }) => {
@@ -11,14 +11,13 @@ const Team = {
       }
     };
   },
-  put: ({ teamId, teamName, abbreviation, arena }) => {
+  put: ({ teamId, teamName, arena }) => {
     return {
       TableName: tableName,
       Item: {
         Id: teamId,
         Metadata: 'Team',
         TeamName: teamName,
-        Abbreviation: abbreviation,
         Arena: arena,
       },
     };
@@ -26,7 +25,7 @@ const Team = {
   queryAll: {
     TableName: tableName,
     IndexName: 'MetadataIndex',
-    ProjectionExpression: 'Id, Metadata, TeamName, Abbreviation, Arena',
+    ProjectionExpression: 'Id, Metadata, TeamName, Arena',
     ExpressionAttributeNames: { '#p': 'Metadata' },
     KeyConditionExpression: '#p = :v1',
     ExpressionAttributeValues: { ':v1': 'Team' }

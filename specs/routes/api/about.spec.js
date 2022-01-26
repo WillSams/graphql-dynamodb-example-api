@@ -17,11 +17,11 @@ describe('Route - About - /api', () => {
 
                 expect(res.status).to.equal(200);
 
-                res.headers["content-type"].should.contains('application/json');
+                res.headers['content-type'].should.contains('application/json');
 
                 res.body.should.have.property('name');
-                res.body.should.have.property('version')
-                res.body.should.have.property('description')
+                res.body.should.have.property('version');
+                res.body.should.have.property('description');
 
                 done();
             });

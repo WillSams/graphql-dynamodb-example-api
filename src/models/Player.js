@@ -1,5 +1,4 @@
-const tableName = `League-${process.env.NODE_ENV}`
-console.log(tableName)
+const tableName = `League-${process.env.NODE_ENV}`;
 
 const Player = {
   get: ({ teamId, playerId }) => {
@@ -19,7 +18,7 @@ const Player = {
       ExpressionAttributeValues: { ':v1': teamId, ':v2': 'Player' }
     };
   },
-  put: ({ teamId, playerId, playerName, position, age }) => {
+  put: ({ teamId, playerId, playerName, position, details }) => {
     return {
       TableName: tableName,
       Item: {
@@ -27,7 +26,7 @@ const Player = {
         Metadata: playerId,
         PlayerName: playerName,
         Position: position,
-        Age: age,
+        ...details
       }
     };
   },

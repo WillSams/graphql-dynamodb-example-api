@@ -3,13 +3,9 @@ process.env.NODE_ENV = 'test';
 const chai = require('chai');
 const expect = chai.expect;
 
-const { createPlayer } = require('../../../src/resolvers/mutations')
-const { reseedDb, removeDbTestData } = require('../../../specs');
+const { createPlayer } = require('../../../src/resolvers/mutations');
 
 chai.should();
-
-before(async () => await reseedDb());
-after(async () => await removeDbTestData());
 
 describe('Resolvers - Mutation', () => {
 
@@ -17,7 +13,7 @@ describe('Resolvers - Mutation', () => {
     teamId: 'test-team-4',
     playerId: 'Player-abc',
     playerName: 'Jane Doe',
-    position: 'C'
+    position: 'S'
   };
 
   it('`createPlayer` mutation should create player', async () => {

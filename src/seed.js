@@ -1,81 +1,78 @@
-const faker = require('faker');
 const { v4: uuidv4 } = require('uuid');
 
 const { createGame, createPlayer, createTeam } = require('./resolvers/mutations');
+const seeder = require('../src/utils/seeder');
 
-// teamId, teamName, abbreviation, arena
+// teamId, teamName, arena
 const teams = [
-  { teamId: '1', teamName: 'Augusta GA JUCO', abbreviation: 'AGAJ', arena: 'Milledgeville Ice Center' },
-  { teamId: '2', teamName: 'Chattanooga TN JUCO', abbreviation: 'CTNJ', arena: 'Chattanooga Arena' },
-  { teamId: '3', teamName: 'Jackson MS JUCO', abbreviation: 'JMSJ', arena: 'Raymond Sports Center' },
-  { teamId: '4', teamName: 'Mobile AL JUCO', abbreviation: 'MOBJ', arena: 'Mobile Ice Center' },
-  { teamId: '5', teamName: 'Montgomery AL JUCO', abbreviation: 'MONJ', arena: 'Alexander City Arena' },
-  { teamId: '6', teamName: 'New Orleans LA JUCO', abbreviation: 'NOLAJ', arena: 'New Orleans Arena' },
-  { teamId: '7', teamName: 'Spartanburg SC JUCO', abbreviation: 'SSCJ', arena: 'Spartanburg Memorial Arena' },
+  {
+    teamId: 'boysU9', teamName: 'Boys U9', arena: 'City Complex A'
+  },
+  {
+    teamId: 'boysU11', teamName: 'Boys U11', arena: 'City Complex B'
+  },
+  {
+    teamId: 'boysU13', teamName: 'Boys U13', arena: 'City Complex C'
+  },
+  {
+    teamId: 'boysU15', teamName: 'Boys U15', arena: 'City Complex D'
+  },
+  {
+    teamId: 'girlsU9', teamName: 'Girls U9', arena: 'City Complex A'
+  },
+  {
+    teamId: 'girlsU11', teamName: 'Girls U11', arena: 'City Complex B'
+  },
+  {
+    teamId: 'girlsU13', teamName: 'Girls U13', arena: 'City Complex C'
+  },
+  {
+    teamId: 'girlsU15', teamName: 'Girls U15', arena: 'City Complex D'
+  },
 ];
 
-// teamId, playerId, playerName, position
-const players = [
-  { teamId: '1', playerId: `Player-${uuidv4()}`, playerName: `${faker.name.firstName()} ${faker.name.lastName()}`, position: 'G', age: faker.random.number({ min: 17, max: 25 }) },
-  { teamId: '1', playerId: `Player-${uuidv4()}`, playerName: `${faker.name.firstName()} ${faker.name.lastName()}`, position: 'C', age: faker.random.number({ min: 17, max: 25 }) },
-  { teamId: '1', playerId: `Player-${uuidv4()}`, playerName: `${faker.name.firstName()} ${faker.name.lastName()}`, position: 'LW', age: faker.random.number({ min: 17, max: 25 }) },
-  { teamId: '1', playerId: `Player-${uuidv4()}`, playerName: `${faker.name.firstName()} ${faker.name.lastName()}`, position: 'RW', age: faker.random.number({ min: 17, max: 25 }) },
-  { teamId: '1', playerId: `Player-${uuidv4()}`, playerName: `${faker.name.firstName()} ${faker.name.lastName()}`, position: 'LD', age: faker.random.number({ min: 17, max: 25 }) },
-  { teamId: '1', playerId: `Player-${uuidv4()}`, playerName: `${faker.name.firstName()} ${faker.name.lastName()}`, position: 'RD', age: faker.random.number({ min: 17, max: 25 }) },
+const createFakePlayer = ({ team, position, }) => ({
+  teamId: `${team.teamId}`, playerId: `Player-${uuidv4()}`,
+  playerName: seeder.getFakeName(team.teamId),
+  position,
+  details: {
+    BirthDate: seeder.getFakeBirthdate(team.teamId),
+    Height: seeder.getFakeHeight(team.teamId),
+    Weight: seeder.getFakeWeight(team.teamId),
+    Jersey: seeder.getFakeJerseyNumber(),
+    Shoots: seeder.getShootingFoot(),
+    Hometown: seeder.getFakeHomeTown()
+  }
+});
 
-  { teamId: '2', playerId: `Player-${uuidv4()}`, playerName: `${faker.name.firstName()} ${faker.name.lastName()}`, position: 'G', age: faker.random.number({ min: 17, max: 25 }) },
-  { teamId: '2', playerId: `Player-${uuidv4()}`, playerName: `${faker.name.firstName()} ${faker.name.lastName()}`, position: 'C', age: faker.random.number({ min: 17, max: 25 }) },
-  { teamId: '2', playerId: `Player-${uuidv4()}`, playerName: `${faker.name.firstName()} ${faker.name.lastName()}`, position: 'LW', age: faker.random.number({ min: 17, max: 25 }) },
-  { teamId: '2', playerId: `Player-${uuidv4()}`, playerName: `${faker.name.firstName()} ${faker.name.lastName()}`, position: 'RW', age: faker.random.number({ min: 17, max: 25 }) },
-  { teamId: '2', playerId: `Player-${uuidv4()}`, playerName: `${faker.name.firstName()} ${faker.name.lastName()}`, position: 'LD', age: faker.random.number({ min: 17, max: 25 }) },
-  { teamId: '2', playerId: `Player-${uuidv4()}`, playerName: `${faker.name.firstName()} ${faker.name.lastName()}`, position: 'RD', age: faker.random.number({ min: 17, max: 25 }) },
+let players = [];
+const forwardsCount, defendersCount = 5;
+const midfieldersCount = 6;
+const goaliesCount = 2;
+teams.forEach(team => {
+  for (let i = 0; i < forwardsCount; i++)
+    players = players.concat([createFakePlayer({ team, position: 'F' })]);
 
-  { teamId: '3', playerId: `Player-${uuidv4()}`, playerName: `${faker.name.firstName()} ${faker.name.lastName()}`, position: 'G', age: faker.random.number({ min: 17, max: 25 }) },
-  { teamId: '3', playerId: `Player-${uuidv4()}`, playerName: `${faker.name.firstName()} ${faker.name.lastName()}`, position: 'C', age: faker.random.number({ min: 17, max: 25 }) },
-  { teamId: '3', playerId: `Player-${uuidv4()}`, playerName: `${faker.name.firstName()} ${faker.name.lastName()}`, position: 'LW', age: faker.random.number({ min: 17, max: 25 }) },
-  { teamId: '3', playerId: `Player-${uuidv4()}`, playerName: `${faker.name.firstName()} ${faker.name.lastName()}`, position: 'RW', age: faker.random.number({ min: 17, max: 25 }) },
-  { teamId: '3', playerId: `Player-${uuidv4()}`, playerName: `${faker.name.firstName()} ${faker.name.lastName()}`, position: 'LD', age: faker.random.number({ min: 17, max: 25 }) },
-  { teamId: '3', playerId: `Player-${uuidv4()}`, playerName: `${faker.name.firstName()} ${faker.name.lastName()}`, position: 'RD', age: faker.random.number({ min: 17, max: 25 }) },
+  for (let i = 0; i < midfieldersCount; i++)
+    players = players.concat([createFakePlayer({ team, position: 'M' })]);
 
-  { teamId: '4', playerId: `Player-${uuidv4()}`, playerName: `${faker.name.firstName()} ${faker.name.lastName()}`, position: 'G', age: faker.random.number({ min: 17, max: 25 }) },
-  { teamId: '4', playerId: `Player-${uuidv4()}`, playerName: `${faker.name.firstName()} ${faker.name.lastName()}`, position: 'C', age: faker.random.number({ min: 17, max: 25 }) },
-  { teamId: '4', playerId: `Player-${uuidv4()}`, playerName: `${faker.name.firstName()} ${faker.name.lastName()}`, position: 'LW', age: faker.random.number({ min: 17, max: 25 }) },
-  { teamId: '4', playerId: `Player-${uuidv4()}`, playerName: `${faker.name.firstName()} ${faker.name.lastName()}`, position: 'RW', age: faker.random.number({ min: 17, max: 25 }) },
-  { teamId: '4', playerId: `Player-${uuidv4()}`, playerName: `${faker.name.firstName()} ${faker.name.lastName()}`, position: 'LD', age: faker.random.number({ min: 17, max: 25 }) },
-  { teamId: '4', playerId: `Player-${uuidv4()}`, playerName: `${faker.name.firstName()} ${faker.name.lastName()}`, position: 'RD', age: faker.random.number({ min: 17, max: 25 }) },
+  for (let i = 0; i < defendersCount; i++)
+    players = players.concat([createFakePlayer({ team, position: 'D' })]);
 
-  { teamId: '5', playerId: `Player-${uuidv4()}`, playerName: `${faker.name.firstName()} ${faker.name.lastName()}`, position: 'G', age: faker.random.number({ min: 17, max: 25 }) },
-  { teamId: '5', playerId: `Player-${uuidv4()}`, playerName: `${faker.name.firstName()} ${faker.name.lastName()}`, position: 'C', age: faker.random.number({ min: 17, max: 25 }) },
-  { teamId: '5', playerId: `Player-${uuidv4()}`, playerName: `${faker.name.firstName()} ${faker.name.lastName()}`, position: 'LW', age: faker.random.number({ min: 17, max: 25 }) },
-  { teamId: '5', playerId: `Player-${uuidv4()}`, playerName: `${faker.name.firstName()} ${faker.name.lastName()}`, position: 'RW', age: faker.random.number({ min: 17, max: 25 }) },
-  { teamId: '5', playerId: `Player-${uuidv4()}`, playerName: `${faker.name.firstName()} ${faker.name.lastName()}`, position: 'LD', age: faker.random.number({ min: 17, max: 25 }) },
-  { teamId: '5', playerId: `Player-${uuidv4()}`, playerName: `${faker.name.firstName()} ${faker.name.lastName()}`, position: 'RD', age: faker.random.number({ min: 17, max: 25 }) },
-
-  { teamId: '6', playerId: `Player-${uuidv4()}`, playerName: `${faker.name.firstName()} ${faker.name.lastName()}`, position: 'G', age: faker.random.number({ min: 17, max: 25 }) },
-  { teamId: '6', playerId: `Player-${uuidv4()}`, playerName: `${faker.name.firstName()} ${faker.name.lastName()}`, position: 'C', age: faker.random.number({ min: 17, max: 25 }) },
-  { teamId: '6', playerId: `Player-${uuidv4()}`, playerName: `${faker.name.firstName()} ${faker.name.lastName()}`, position: 'LW', age: faker.random.number({ min: 17, max: 25 }) },
-  { teamId: '6', playerId: `Player-${uuidv4()}`, playerName: `${faker.name.firstName()} ${faker.name.lastName()}`, position: 'RW', age: faker.random.number({ min: 17, max: 25 }) },
-  { teamId: '6', playerId: `Player-${uuidv4()}`, playerName: `${faker.name.firstName()} ${faker.name.lastName()}`, position: 'LD', age: faker.random.number({ min: 17, max: 25 }) },
-  { teamId: '6', playerId: `Player-${uuidv4()}`, playerName: `${faker.name.firstName()} ${faker.name.lastName()}`, position: 'RD', age: faker.random.number({ min: 17, max: 25 }) },
-
-  { teamId: '7', playerId: `Player-${uuidv4()}`, playerName: `${faker.name.firstName()} ${faker.name.lastName()}`, position: 'G', age: faker.random.number({ min: 17, max: 25 }) },
-  { teamId: '7', playerId: `Player-${uuidv4()}`, playerName: `${faker.name.firstName()} ${faker.name.lastName()}`, position: 'C', age: faker.random.number({ min: 17, max: 25 }) },
-  { teamId: '7', playerId: `Player-${uuidv4()}`, playerName: `${faker.name.firstName()} ${faker.name.lastName()}`, position: 'LW', age: faker.random.number({ min: 17, max: 25 }) },
-  { teamId: '7', playerId: `Player-${uuidv4()}`, playerName: `${faker.name.firstName()} ${faker.name.lastName()}`, position: 'RW', age: faker.random.number({ min: 17, max: 25 }) },
-  { teamId: '7', playerId: `Player-${uuidv4()}`, playerName: `${faker.name.firstName()} ${faker.name.lastName()}`, position: 'LD', age: faker.random.number({ min: 17, max: 25 }) },
-  { teamId: '7', playerId: `Player-${uuidv4()}`, playerName: `${faker.name.firstName()} ${faker.name.lastName()}`, position: 'RD', age: faker.random.number({ min: 17, max: 25 }) },
-];
+  for (let i = 0; i < goaliesCount; i++)
+    players = players.concat([createFakePlayer({ team, position: 'G' })]);
+});
 
 // teamId, gameId, gameDay, winLoss
 const games = [
-  { teamId: '1', gameId: 'Game-AGAJ01-CTNJ01', gameDay: 'Oct-09-2018', winLoss: 'Win' },
-  { teamId: '2', gameId: 'Game-AGAJ01-CTNJ01', gameDay: 'Oct-09-2018', winLoss: 'Loss' },
-  { teamId: '3', gameId: 'Game-JMSJ01-MOBJ01', gameDay: 'Oct-09-2018', winLoss: 'Loss' },
-  { teamId: '4', gameId: 'Game-MOBJ01-JMSJ01', gameDay: 'Oct-09-2018', winLoss: 'Win' },
-  { teamId: '5', gameId: 'Game-MONJ01-NOLAJ', gameDay: 'Oct-10-2018', winLoss: 'Win' },
-  { teamId: '6', gameId: 'Game-NOLAJ-MONJ01', gameDay: 'Oct-10-2018', winLoss: 'Loss' },
-  { teamId: '7', gameId: 'Game-SSCJ01-AGAJ02', gameDay: 'Oct-16-2018', winLoss: 'Win' },
-  { teamId: '1', gameId: 'Game-AGAJ02-SSCJ01', gameDay: 'Oct-16-2018', winLoss: 'Loss' },
+  { teamId: 'boysU9', gameId: 'Game-boysU9-2021-01', gameDay: 'April-17-2021', winLoss: 'Win' },
+  { teamId: 'boysU11', gameId: 'Game-boysU11-2021-01', gameDay: 'April-17-2021', winLoss: 'Loss' },
+  { teamId: 'boysU13', gameId: 'Game-boysU13-2021-01', gameDay: 'April-17-2021', winLoss: 'Loss' },
+  { teamId: 'boysU15', gameId: 'Game-boysU15-21-01', gameDay: 'April-17-2021', winLoss: 'Win' },
+  { teamId: 'girlsU9', gameId: 'Game-girlsU9-2021-01', gameDay: 'April-17-2021', winLoss: 'Loss' },
+  { teamId: 'girlsU11', gameId: 'Game-girlsU11-2021-01', gameDay: 'April-17-2021', winLoss: 'Win' },
+  { teamId: 'girlsU13', gameId: 'Game-girlsU13-2021-01', gameDay: 'April-17-2021', winLoss: 'Win' },
+  { teamId: 'girlsU15', gameId: 'Game-girlsU15-21-01', gameDay: 'April-17-2021', winLoss: 'Loss' },
 ];
 
 const seedDatabase = () => {

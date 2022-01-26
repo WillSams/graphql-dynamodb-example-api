@@ -3,11 +3,7 @@ process.env.NODE_ENV = 'test';
 const chai = require('chai');
 const expect = chai.expect;
 
-const { createTeam } = require('../../../src/resolvers/mutations')
-
-const { reseedDb, removeDbTestData } = require('../../../specs');
-before(async () => await reseedDb());
-after(async () => await removeDbTestData());
+const { createTeam } = require('../../../src/resolvers/mutations');
 
 chai.should();
 
@@ -16,7 +12,6 @@ describe('Resolvers - Mutation', () => {
   const params = {
     teamId: 'test-team-4',
     teamName: 'Savannah GA JUCO',
-    abbreviation: 'SAVJ',
     arena: 'Savannah Civic Center'
   };
 
@@ -31,9 +26,6 @@ describe('Resolvers - Mutation', () => {
 
     result.should.have.property('TeamName');
     expect(result.TeamName).to.equal(params.teamName);
-
-    result.should.have.property('Abbreviation');
-    expect(result.Abbreviation).to.equal(params.abbreviation);
 
     result.should.have.property('Arena');
     expect(result.Arena).to.equal(params.arena);

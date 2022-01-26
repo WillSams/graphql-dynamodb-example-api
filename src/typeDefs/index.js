@@ -9,15 +9,22 @@ type Team {
   Id: String!
   Metadata: String!
   TeamName: String!
-  Abbreviation: String
   Arena: String
+  Players: [Player]
+  Games: [Game]
 }
 
 type Player {
   Id: String!
   Metadata: String!
   PlayerName: String!
-  Position: String
+  Position: String,
+  BirthDate: String,
+  Height: String,
+  Weight: String,
+  Jersey: String,
+  Shoots: String,
+  Hometown: String
 }
 
 type Game {
@@ -30,7 +37,6 @@ type Game {
 input CreateTeamInput {
   teamId: String!
   teamName: String!
-  abbreviation: String
   arena: String
 }
 

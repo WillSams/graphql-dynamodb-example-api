@@ -5,14 +5,10 @@ const expect = chai.expect;
 
 const bootstrap = require('../../../../src/bootstrap');
 
-const { reseedDb, removeDbTestData } = require('../../../../specs');
-before(async () => await reseedDb());
-after(async () => await removeDbTestData());
-
 chai.use(require('chai-http'));
 chai.should();
 
-describe('Route - Mutations - /graphql', () => {
+describe('Route - Mutations - /api/graphql', () => {
 
   it('`createPlayer` mutation should create player', done => {
 
@@ -20,11 +16,11 @@ describe('Route - Mutations - /graphql', () => {
       teamId: 'test-team-4',
       playerId: 'Player-abc',
       playerName: 'Jane Doe',
-      position: 'C'
+      position: 'S'
     };
 
     chai.request(bootstrap)
-      .post('/graphql')
+      .post('/api/graphql')
       .send({
         query: `mutation CreatePlayer($input: CreatePlayerInput!) {
           createPlayer(input: $input) {

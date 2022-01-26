@@ -4,19 +4,18 @@ const chai = require('chai');
 const expect = chai.expect;
 
 const bootstrap = require('../../../../src/bootstrap');
+const { reseedDb } = require('../../../../specs');
 
 chai.use(require('chai-http'));
 chai.should();
 
-const { reseedDb } = require('../../../../specs');
-before(async () => reseedDb());
-
-describe('Route - Queries - /graphql', () => {
+describe('Route - Queries - /api/graphql', () => {
+  before(() => reseedDb());
 
   it('`getPlayer` query should retrieve player', done => {
     const variables = { teamId: 'test-team-1', playerId: 'Player-123' };
     chai.request(bootstrap)
-      .post('/graphql')
+      .post('/api/graphql')
       .send({
         query: `query GetPlayer($teamId: String!, $playerId: String!) {
             getPlayer(teamId: $teamId, playerId: $playerId) {

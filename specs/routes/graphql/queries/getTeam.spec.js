@@ -4,18 +4,18 @@ const chai = require('chai');
 const expect = chai.expect;
 
 const bootstrap = require('../../../../src/bootstrap');
+const { reseedDb } = require('../../../../specs');
 
 chai.use(require('chai-http'));
 chai.should();
 
-const { reseedDb } = require('../../../../specs');
-before(async () => reseedDb());
+describe('Route - Queries - /api/graphql', () => {
+  before(() => reseedDb());
 
-describe('Route - Queries - /graphql', () => {
   it('`getTeam` query should retrieve team', done => {
     chai.request(bootstrap)
-      .post('/graphql')
-      .send({ query: '{ getTeam(teamId: "test-team-1") { Id Metadata TeamName Abbreviation Arena } }' })
+      .post('/api/graphql')
+      .send({ query: '{ getTeam(teamId: "test-team-1") { Id Metadata TeamName Arena } }' })
       .end((err, res) => {
         if (err) return done(err);
 
@@ -31,9 +31,6 @@ describe('Route - Queries - /graphql', () => {
 
         data.getTeam.should.have.property('TeamName');
         expect(data.getTeam.TeamName).to.equal('Test Team 1');
-
-        data.getTeam.should.have.property('Abbreviation');
-        expect(data.getTeam.Abbreviation).to.equal('TT01');
 
         data.getTeam.should.have.property('Arena');
         expect(data.getTeam.Arena).to.equal('Test Team 1 Arena');
