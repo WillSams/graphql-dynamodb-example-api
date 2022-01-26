@@ -1,8 +1,6 @@
-# Example GraphQL API using Express JS, Apollo Server, and Local Amazon DynamoDb
+# Example JavaScript API 
 
-WIP
-
-Still writing tests and refactoring code.  Once done, I'll cleanup this README and repository.
+Example API using Express JS, Apollo Server, and Local Amazon DynamoDb.
 
 ## Pre-requisites
 
