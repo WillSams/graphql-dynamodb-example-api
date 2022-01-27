@@ -42,9 +42,9 @@ const games = [
 ];
 
 const removeDbTestData = () => {
-  sleep(2);
+  sleep(1);
   spawn(`${__dirname}/clean_db.sh`);
-  sleep(2);
+  sleep(1);
 };
 
 const reseedDb = () => {

@@ -13,31 +13,31 @@ chai.should();
 describe('Route - Queries - /api/graphql', () => {
   before(() => reseedDb());
 
-  it('`listTeamGames` query should retrieve games for a team', done => {
+  it('`teamGames` query should retrieve games for a team', done => {
     chai.request(bootstrap)
       .post('/api/graphql')
       .send({
         query: `
         query Query($teamId: String!) {
-          listTeamGames(teamId: $teamId) {
+          teamGames(teamId: $teamId) {
             Id
             Metadata
             GameDay
             WinLoss
           }
         }`,
-        variables: { "teamId": "test-team-1" },
+        variables: { 'teamId': 'test-team-1' },
       })
       .end((err, res) => {
         if (err) return done(err);
 
         expect(res.status).to.equal(200);
 
-        res.headers["content-type"].should.contains('application/json');
+        res.headers['content-type'].should.contains('application/json');
 
         const data = res?.body?.data;
 
-        expect(data.listTeamGames.length).to.equal(2);
+        expect(data.teamGames.length).to.equal(2);
 
         done();
       });

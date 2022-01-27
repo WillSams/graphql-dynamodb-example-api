@@ -1,4 +1,4 @@
-const tableName = `League-${process.env.NODE_ENV}`;
+const tableName = `Soccer-${process.env.NODE_ENV}`;
 
 const Game = {
   get: ({ teamId, gameId }) => {

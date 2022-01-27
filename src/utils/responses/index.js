@@ -41,4 +41,4 @@ module.exports = {
   dbPut,
   dbQuery,
   dbScan,
-}
+};

@@ -35,7 +35,7 @@ describe('Route - Mutations - /api/graphql', () => {
       .end((err, res) => {
         if (err) return done(err);
 
-        res.headers["content-type"].should.contains('application/json');
+        res.headers['content-type'].should.contains('application/json');
 
         const data = res?.body?.data;
 
