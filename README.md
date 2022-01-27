@@ -6,11 +6,12 @@ Example API using Express JS, Apollo Server, and Local Amazon DynamoDb.
 ![text](api-2.png)
 
 TODO:
-
 - Write more tests.
 - Add token-based authentication.
 - Add CI/CD w/ CircleCI.
 - Create deployment container and ship it AWS Elastic Container Registry.
+- Add delete mutations
+- Utilize different types other than strings
 
 ## Pre-requisites
 
