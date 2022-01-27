@@ -1,7 +1,7 @@
 {
   "AWSTemplateFormatVersion": "2010-09-09",
   "Resources": {
-    "League": {
+    "Soccer": {
       "Type": "AWS::DynamoDB::Table",
       "Properties": {
         "KeySchema": [
@@ -95,19 +95,19 @@
           }
         ],
         "BillingMode": "PROVISIONED",
-        "TableName": "League",
+        "TableName": "Soccer",
         "ProvisionedThroughput": {
           "ReadCapacityUnits": 1,
           "WriteCapacityUnits": 1
         }
       }
     },
-    "TableLeagueReadCapacityScalableTarget": {
+    "TableSoccerReadCapacityScalableTarget": {
       "Type": "AWS::ApplicationAutoScaling::ScalableTarget",
-      "DependsOn": "League",
+      "DependsOn": "Soccer",
       "Properties": {
         "ServiceNamespace": "dynamodb",
-        "ResourceId": "table/League",
+        "ResourceId": "table/Soccer",
         "ScalableDimension": "dynamodb:table:ReadCapacityUnits",
         "MinCapacity": 1,
         "MaxCapacity": 10,
@@ -116,14 +116,14 @@
         }
       }
     },
-    "TableLeagueReadCapacityScalingPolicy": {
+    "TableSoccerReadCapacityScalingPolicy": {
       "Type": "AWS::ApplicationAutoScaling::ScalingPolicy",
-      "DependsOn": "TableLeagueReadCapacityScalableTarget",
+      "DependsOn": "TableSoccerReadCapacityScalableTarget",
       "Properties": {
         "ServiceNamespace": "dynamodb",
-        "ResourceId": "table/League",
+        "ResourceId": "table/Soccer",
         "ScalableDimension": "dynamodb:table:ReadCapacityUnits",
-        "PolicyName": "League-read-capacity-scaling-policy",
+        "PolicyName": "Soccer-read-capacity-scaling-policy",
         "PolicyType": "TargetTrackingScaling",
         "TargetTrackingScalingPolicyConfiguration": {
           "PredefinedMetricSpecification": {
@@ -135,12 +135,12 @@
         }
       }
     },
-    "TableLeagueWriteCapacityScalableTarget": {
+    "TableSoccerWriteCapacityScalableTarget": {
       "Type": "AWS::ApplicationAutoScaling::ScalableTarget",
-      "DependsOn": "League",
+      "DependsOn": "Soccer",
       "Properties": {
         "ServiceNamespace": "dynamodb",
-        "ResourceId": "table/League",
+        "ResourceId": "table/Soccer",
         "ScalableDimension": "dynamodb:table:WriteCapacityUnits",
         "MinCapacity": 1,
         "MaxCapacity": 10,
@@ -149,14 +149,14 @@
         }
       }
     },
-    "TableLeagueWriteCapacityScalingPolicy": {
+    "TableSoccerWriteCapacityScalingPolicy": {
       "Type": "AWS::ApplicationAutoScaling::ScalingPolicy",
-      "DependsOn": "TableLeagueWriteCapacityScalableTarget",
+      "DependsOn": "TableSoccerWriteCapacityScalableTarget",
       "Properties": {
         "ServiceNamespace": "dynamodb",
-        "ResourceId": "table/League",
+        "ResourceId": "table/Soccer",
         "ScalableDimension": "dynamodb:table:WriteCapacityUnits",
-        "PolicyName": "League-write-capacity-scaling-policy",
+        "PolicyName": "Soccer-write-capacity-scaling-policy",
         "PolicyType": "TargetTrackingScaling",
         "TargetTrackingScalingPolicyConfiguration": {
           "PredefinedMetricSpecification": {
@@ -168,12 +168,12 @@
         }
       }
     },
-    "TableLeagueIndexGameLogIndexReadCapacityScalableTarget": {
+    "TableSoccerIndexGameLogIndexReadCapacityScalableTarget": {
       "Type": "AWS::ApplicationAutoScaling::ScalableTarget",
-      "DependsOn": "League",
+      "DependsOn": "Soccer",
       "Properties": {
         "ServiceNamespace": "dynamodb",
-        "ResourceId": "table/League/index/GameLogIndex",
+        "ResourceId": "table/Soccer/index/GameLogIndex",
         "ScalableDimension": "dynamodb:index:ReadCapacityUnits",
         "MinCapacity": 1,
         "MaxCapacity": 10,
@@ -182,14 +182,14 @@
         }
       }
     },
-    "TableLeagueIndexGameLogIndexReadCapacityScalingPolicy": {
+    "TableSoccerIndexGameLogIndexReadCapacityScalingPolicy": {
       "Type": "AWS::ApplicationAutoScaling::ScalingPolicy",
-      "DependsOn": "TableLeagueIndexGameLogIndexReadCapacityScalableTarget",
+      "DependsOn": "TableSoccerIndexGameLogIndexReadCapacityScalableTarget",
       "Properties": {
         "ServiceNamespace": "dynamodb",
-        "ResourceId": "table/League/index/GameLogIndex",
+        "ResourceId": "table/Soccer/index/GameLogIndex",
         "ScalableDimension": "dynamodb:index:ReadCapacityUnits",
-        "PolicyName": "League-index-GameLogIndex-read-capacity-scaling-policy",
+        "PolicyName": "Soccer-index-GameLogIndex-read-capacity-scaling-policy",
         "PolicyType": "TargetTrackingScaling",
         "TargetTrackingScalingPolicyConfiguration": {
           "PredefinedMetricSpecification": {
@@ -201,12 +201,12 @@
         }
       }
     },
-    "TableLeagueIndexGameLogIndexWriteCapacityScalableTarget": {
+    "TableSoccerIndexGameLogIndexWriteCapacityScalableTarget": {
       "Type": "AWS::ApplicationAutoScaling::ScalableTarget",
-      "DependsOn": "League",
+      "DependsOn": "Soccer",
       "Properties": {
         "ServiceNamespace": "dynamodb",
-        "ResourceId": "table/League/index/GameLogIndex",
+        "ResourceId": "table/Soccer/index/GameLogIndex",
         "ScalableDimension": "dynamodb:index:WriteCapacityUnits",
         "MinCapacity": 1,
         "MaxCapacity": 10,
@@ -215,14 +215,14 @@
         }
       }
     },
-    "TableLeagueIndexGameLogIndexWriteCapacityScalingPolicy": {
+    "TableSoccerIndexGameLogIndexWriteCapacityScalingPolicy": {
       "Type": "AWS::ApplicationAutoScaling::ScalingPolicy",
-      "DependsOn": "TableLeagueIndexGameLogIndexWriteCapacityScalableTarget",
+      "DependsOn": "TableSoccerIndexGameLogIndexWriteCapacityScalableTarget",
       "Properties": {
         "ServiceNamespace": "dynamodb",
-        "ResourceId": "table/League/index/GameLogIndex",
+        "ResourceId": "table/Soccer/index/GameLogIndex",
         "ScalableDimension": "dynamodb:index:WriteCapacityUnits",
-        "PolicyName": "League-index-GameLogIndex-write-capacity-scaling-policy",
+        "PolicyName": "Soccer-index-GameLogIndex-write-capacity-scaling-policy",
         "PolicyType": "TargetTrackingScaling",
         "TargetTrackingScalingPolicyConfiguration": {
           "PredefinedMetricSpecification": {

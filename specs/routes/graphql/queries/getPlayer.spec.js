@@ -10,15 +10,15 @@ chai.use(require('chai-http'));
 chai.should();
 
 describe('Route - Queries - /api/graphql', () => {
-  before(() => reseedDb());
+  before(() => reseedDb());;
 
-  it('`getPlayer` query should retrieve player', done => {
+  it('`player` query should retrieve player', done => {
     const variables = { teamId: 'test-team-1', playerId: 'Player-123' };
     chai.request(bootstrap)
       .post('/api/graphql')
       .send({
         query: `query GetPlayer($teamId: String!, $playerId: String!) {
-            getPlayer(teamId: $teamId, playerId: $playerId) {
+            player(teamId: $teamId, playerId: $playerId) {
               Id
               Metadata
               PlayerName
@@ -32,21 +32,21 @@ describe('Route - Queries - /api/graphql', () => {
 
         expect(res.status).to.equal(200);
 
-        res.headers["content-type"].should.contains('application/json');
+        res.headers['content-type'].should.contains('application/json');
 
         const data = res?.body?.data;
 
-        data.getPlayer.should.have.property('Id');
-        expect(data.getPlayer.Id).to.equal(variables.teamId);
+        data.player.should.have.property('Id');
+        expect(data.player.Id).to.equal(variables.teamId);
 
-        data.getPlayer.should.have.property('Metadata');
-        expect(data.getPlayer.Metadata).to.equal(variables.playerId);
+        data.player.should.have.property('Metadata');
+        expect(data.player.Metadata).to.equal(variables.playerId);
 
-        data.getPlayer.should.have.property('PlayerName');
-        expect(data.getPlayer.PlayerName).to.equal('Test Player1');
+        data.player.should.have.property('PlayerName');
+        expect(data.player.PlayerName).to.equal('Test Player1');
 
-        data.getPlayer.should.have.property('Position');
-        expect(data.getPlayer.Position).to.equal('G');
+        data.player.should.have.property('Position');
+        expect(data.player.Position).to.equal('G');
 
         done();
       });

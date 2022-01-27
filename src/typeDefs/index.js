@@ -61,12 +61,12 @@ type Mutation {
 }
 
 type Query {
-  getTeam(teamId: String!): Team
-  getGame(teamId: String!, gameId: String!): Game
-  getPlayer(teamId: String!, playerId: String!): Player
-  listTeams: [Team]
-  listTeamPlayers(teamId: String!): [Player]
-  listTeamGames(teamId: String!): [Game]
+  team(teamId: String!): Team
+  game(teamId: String!, gameId: String!): Game
+  player(teamId: String!, playerId: String!): Player
+  teams: [Team]
+  teamPlayers(teamId: String!): [Player]
+  teamGames(teamId: String!): [Game]
 }
 `;
 

@@ -1,5 +1,5 @@
 {
-  "ModelName": "Southern JUCO Hockey League Data Model",
+  "ModelName": "Deportivo Carolina de Fútbol Data Model",
   "ModelMetadata": {
     "Author": "Will Sams",
     "Version": "3.0",
@@ -7,7 +7,7 @@
   },
   "DataModel": [
     {
-      "TableName": "League",
+      "TableName": "Soccer",
       "KeyAttributes": {
         "PartitionKey": {
           "AttributeName": "Id",
@@ -32,10 +32,6 @@
           "AttributeType": "S"
         },
         {
-          "AttributeName": "Abbreviation",
-          "AttributeType": "S"
-        },
-        {
           "AttributeName": "Arena",
           "AttributeType": "S"
         },
@@ -50,134 +46,126 @@
       ],
       "TableFacets": [
         {
-          "FacetName": "LeagueTeam",
+          "FacetName": "SoccerTeam",
           "KeyAttributeAlias": {
             "PartitionKeyAlias": "TeamId",
             "SortKeyAlias": "Metadata"
           },
           "NonKeyAttributes": [
             "TeamName",
-            "Abbreviation",
             "Arena"
           ],
           "TableData": [
             {
               "Id": {
-                "S": "1"
+                "S": "BoysU9"
               },
               "Metadata": {
                 "S": "Team"
               },
               "TeamName": {
-                "S": "Augusta GA JUCO"
-              },
-              "Abbreviation": {
-                "S": "AGAJ"
+                "S": "Boys U9"
               },
               "Arena": {
-                "S": "Milledgeville Ice Center"
+                "S": "City Complex A"
               }
             },
             {
               "Id": {
-                "S": "2"
+                "S": "GirlsU9"
               },
               "Metadata": {
                 "S": "Team"
               },
               "TeamName": {
-                "S": "Chattanooga TN JUCO"
-              },
-              "Abbreviation": {
-                "S": "CTNJ"
+                "S": "Girls U9"
               },
               "Arena": {
-                "S": "Chattanooga Arena"
+                "S": "City Complex A"
               }
             },
             {
               "Id": {
-                "S": "3"
+                "S": "BoysU11"
               },
               "Metadata": {
                 "S": "Team"
               },
               "TeamName": {
-                "S": "Jackson MS JUCO"
-              },
-              "Abbreviation": {
-                "S": "JMSJ"
+                "S": "Boys U11"
               },
               "Arena": {
-                "S": "Raymond Sports Center"
+                "S": "City Complex B"
               }
             },
             {
               "Id": {
-                "S": "4"
+                "S": "GirlsU11"
               },
               "Metadata": {
                 "S": "Team"
               },
               "TeamName": {
-                "S": "Mobile AL JUCO"
-              },
-              "Abbreviation": {
-                "S": "MOBJ"
+                "S": "Girls U11"
               },
               "Arena": {
-                "S": "Mobile Ice Center"
+                "S": "City Complex B"
               }
             },
             {
               "Id": {
-                "S": "5"
+                "S": "BoysU13"
               },
               "Metadata": {
                 "S": "Team"
               },
               "TeamName": {
-                "S": "Montgomery AL JUCO"
-              },
-              "Abbreviation": {
-                "S": "MONJ"
+                "S": "Boys U13"
               },
               "Arena": {
-                "S": "Alexander City Arena"
+                "S": "City Complex C"
               }
             },
             {
               "Id": {
-                "S": "6"
+                "S": "GirlsU13"
               },
               "Metadata": {
                 "S": "Team"
               },
               "TeamName": {
-                "S": "New Orleans LA JUCO"
-              },
-              "Abbreviation": {
-                "S": "NOLAJ"
+                "S": "Girls U13"
               },
               "Arena": {
-                "S": "New Orleans Arena"
+                "S": "City Complex C"
               }
             },
             {
               "Id": {
-                "S": "7"
+                "S": "BoysU15"
               },
               "Metadata": {
                 "S": "Team"
               },
               "TeamName": {
-                "S": "Spartanburg SC JUCO"
-              },
-              "Abbreviation": {
-                "S": "SSCJ"
+                "S": "Boys U15"
               },
               "Arena": {
-                "S": "Spartanburg Memorial Arena"
+                "S": "City Complex D"
+              }
+            },
+            {
+              "Id": {
+                "S": "GirlsU15"
+              },
+              "Metadata": {
+                "S": "Team"
+              },
+              "TeamName": {
+                "S": "Girls U15"
+              },
+              "Arena": {
+                "S": "City Complex D"
               }
             }
           ]
@@ -249,7 +237,7 @@
       "TableData": [
         {
           "Id": {
-            "S": "1"
+            "S": "BoysU9"
           },
           "Metadata": {
             "S": "Player-01"
@@ -258,12 +246,12 @@
             "S": "John Doe"
           },
           "Position": {
-            "S": "C"
+            "S": "FW"
           }
         },
         {
           "Id": {
-            "S": "1"
+            "S": "BoysU9"
           },
           "Metadata": {
             "S": "Player-02"
@@ -272,12 +260,12 @@
             "S": "Jane Smith"
           },
           "Position": {
-            "S": "RW"
+            "S": "MD"
           }
         },
         {
           "Id": {
-            "S": "1"
+            "S": "BoysU9"
           },
           "Metadata": {
             "S": "Player-03"
@@ -286,7 +274,7 @@
             "S": "John Smith"
           },
           "Position": {
-            "S": "LD"
+            "S": "D"
           }
         },
         {
@@ -300,7 +288,7 @@
             "S": "Jane Doe"
           },
           "Position": {
-            "S": "C"
+            "S": "FW"
           }
         },
         {
@@ -314,15 +302,15 @@
             "S": "Joey Doe"
           },
           "Position": {
-            "S": "RD"
+            "S": "FW"
           }
         },
         {
           "Id": {
-            "S": "1"
+            "S": "BoysU9"
           },
           "Metadata": {
-            "S": "Game-AGAJ-SSCJ-01"
+            "S": "Game-BoysU9-SSCJ-01"
           },
           "GameDay": {
             "S": "Oct-09-2018"
@@ -336,7 +324,7 @@
             "S": "7"
           },
           "Metadata": {
-            "S": "Game-SSCJ-AGAJ-01"
+            "S": "Game-SSCJ-BoysU9-01"
           },
           "GameDay": {
             "S": "Oct-09-2018"

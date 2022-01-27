@@ -3,7 +3,7 @@ process.env.NODE_ENV = 'test';
 const chai = require('chai');
 const expect = chai.expect;
 
-const { getPlayer } = require('../../../src/resolvers/queries');
+const { player } = require('../../../src/resolvers/queries');
 const { reseedDb } = require('../../../specs');
 
 chai.should();
@@ -13,8 +13,8 @@ describe('Resolvers - Queries', () => {
 
   const params = { teamId: 'test-team-1', playerId: 'Player-456' };
 
-  it('`getPlayer` query should retrieve player', async () => {
-    const result = await getPlayer(null, { ...params }).then(data => data);
+  it('`player` query should retrieve player', async () => {
+    const result = await player(null, { ...params }).then(data => data);
 
     result.should.have.property('Id');
     expect(result.Id).to.equal(params.teamId);

@@ -2,7 +2,7 @@
 
 Pre-requisites for local data:
     1. Start Docker container with `docker-compose up -d`.
-    2. Execute the league data model file, `./database/local/league_model.sh` script to generate the database.
+    2. Execute the Soccer data model file, `./database/local/Soccer_model.sh` script to generate the database.
 
 NOTE: Alternatively, if you rather use the [AWS NoSql Workbench](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/workbench.settingup.html):
     1. Start Docker container with `docker-compose up -d`.
@@ -18,7 +18,7 @@ NOTE: Alternatively, if you rather use the [AWS NoSql Workbench](https://docs.aw
 # Note: table was created using the model data
 aws dynamodb describe-table \
   --endpoint-url http://localhost:8042 \
-  --table-name League \
+  --table-name Soccer-development \
   --profile localhost-user \
   --region localhost
 ```
@@ -30,9 +30,9 @@ aws dynamodb describe-table \
 # Quering Local DynamoDB container
 aws dynamodb query \
   --endpoint-url http://localhost:8042 \
-  --table-name League \
+  --table-name Soccer-development \
   --index-name 'MetadataIndex' \
-  --projection-expression 'Metadata, TeamName, Abbreviation, Arena' \
+  --projection-expression 'Metadata, TeamName, Arena' \
   --key-condition-expression "Metadata = :v1" \
   --expression-attribute-values '{ ":v1":{"S":"Team"} }' \
   --profile localhost-user \
@@ -41,7 +41,7 @@ aws dynamodb query \
 # Querying API using Curl 
 curl -X POST \
 -H "Content-Type: application/json" \
--d '{"query":"{ listTeams {  Id \n Metadata \n TeamName \n Abbreviation \n Arena } }"}' \
+-d '{"query":"{ listTeams {  Id \n Metadata \n TeamName  \n Arena } }"}' \
 http://localhost:4040/graphql
 
 #GraphQL query
@@ -50,7 +50,6 @@ query ListTeams {
     Id
     Metadata
     TeamName
-    Abbreviation
     Arena
   }
 }
@@ -59,7 +58,7 @@ query ListTeams {
 # Quering Local DynamoDB container
 aws dynamodb get-item \
   --endpoint-url http://localhost:8042 \
-  --table-name League \
+  --table-name Soccer \
   --key '{ "Id": {"S": "1"}, "Metadata": { "S": "Team" } }' \
   --profile localhost-user \
   --region localhost
@@ -67,7 +66,7 @@ aws dynamodb get-item \
 # Querying API using Curl
 curl -X POST \
 -H "Content-Type: application/json" \
--d '{"query":"{ getTeam(teamId: \"1\") {  \n Metadata \n TeamName \n Abbreviation \n Arena \n } }"}' \
+-d '{"query":"{ getTeam(teamId: \"1\") {  \n Metadata \n TeamName  \n Arena \n } }"}' \
 http://localhost:4040/graphql
 
 #GraphQL query
@@ -75,7 +74,6 @@ query GetTeam($teamId: String!) {
   getTeam(teamId: $teamId) {
     Metadata
     TeamName
-    Abbreviation
     Arena
   }
 }
@@ -87,7 +85,7 @@ query GetTeam($teamId: String!) {
 # Games By TeamID (DEFAULT INDEX) ******************************
 aws dynamodb query \
   --endpoint-url http://localhost:8042 \
-  --table-name League \
+  --table-name Soccer \
   --key-condition-expression "Id = :v1 and begins_with(Metadata, :v2)" \
   --expression-attribute-values '{":v1":{"S":"1"}, ":v2":{"S":"Game"}}' \
   --profile localhost-user \
@@ -116,7 +114,7 @@ query ListTeamGames($teamId: String!) {
 # PLAYERS BY TeamID (DEFAULT INDEX) ******************************
 aws dynamodb query \
   --endpoint-url http://localhost:8042 \
-  --table-name League \
+  --table-name Soccer \
   --key-condition-expression "Id = :v1 and begins_with(Metadata, :v2)" \
   --expression-attribute-values '{":v1":{"S":"1"}, ":v2":{"S":"Player"}}' \
   --profile localhost-user \

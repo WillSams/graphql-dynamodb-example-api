@@ -1,5 +1,7 @@
 #!/bin/sh
 
+TABLE_NAME=Soccer-development
+
 # Delete table if it already exists
 aws dynamodb delete-table \
     --endpoint-url http://localhost:8042 \

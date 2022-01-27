@@ -1,8 +1,12 @@
-# Example JavaScript API 
+# Example JavaScript API
 
 Example API using Express JS, Apollo Server, and Local Amazon DynamoDb.
 
+![text](api-1.png)
+![text](api-2.png)
+
 TODO:
+
 - Write more tests.
 - Add token-based authentication.
 - Add CI/CD w/ CircleCI.
@@ -38,21 +42,24 @@ nvm install lts/*
 
 ### Working with the DynamoDB Docker Container for Development
 
-With Docker installed, execute `docker-compose pull && docker-compose up -d`.  Executing `npm run test` will generate the `League-test` table to execute tests against.  To generate the `League-development` table, you have 2 options:
+With Docker installed, execute `docker-compose pull && docker-compose up -d`.  Executing `npm run test` will generate the `Soccer-test` table to execute tests against.  To generate the `Soccer-development` table, you have 2 options:
 
-1. With `NODE_ENV=development` declared, execute [the CLI shell script](./database/aws_cli_model_creation.sh) to generate the table based on the data model described within.  Afterwards, execute `npm run seed` to seed the database.
-2. Alternatively, you can import the the [AWS NoSql Workbench](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/workbench.settingup.html).  To import the [NoSql Workbench JSON file](./database/nosql_workbench_model.json), go into the `Visualizer` and commit your database to your local DynamoDb.  After you've created a connection to complete the previous step, go to the `Operation Building` and grab the credentials NoSql Workbench created for the connection (see the key icon near the `Name` field).  Once you have the credentials, add them to ~/.aws/credentials file under a new profile called `localhost-user`.  You can test your connection executing the following queries:
+With `NODE_ENV=development` declared, execute [the CLI shell script](./database/aws_cli_model_creation.sh) to generate the table based on the data model described within.  Afterwards, execute `npm run seed` to seed the database.
+
+  Note: Alternatively, you can import the the [AWS NoSql Workbench](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/workbench.settingup.html).  To import the [NoSql Workbench JSON file](./database/nosql_workbench_model.json), go into the `Visualizer` and commit your database to your local DynamoDb.  After you've created a connection to complete the previous step, go to the `Operation Building` and grab the credentials NoSql Workbench created for the connection (see the key icon near the `Name` field).  Once you have the credentials, add them to ~/.aws/credentials file under a new profile called `localhost-user`.  
+
+You can test your connection executing the following queries:
 
 ```bash
 aws dynamodb describe-table \
   --endpoint-url http://localhost:${DYNAMODB_PORT} \
-  --table-name League \
+  --table-name Soccer-development \
   --profile localhost-user \
   --region localhost
 
 aws dynamodb query \
   --endpoint-url http://localhost:${DYNAMODB_PORT} \
-  --table-name League \
+  --table-name Soccer-development \
   --index-name 'MetadataIndex' \
   --projection-expression 'Metadata, TeamName, Abbreviation, Arena' \
   --key-condition-expression "Metadata = :v1" \

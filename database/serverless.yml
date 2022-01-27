@@ -4,7 +4,7 @@ name: database
 # Note:  Replace `deploy_environment`` and `region`` variables with relative values for your needs.
 
 inputs:
-  name: League-${deploy_environment}
+  name: Soccer-${deploy_environment}
   region: ${region}
   # Doesn't delete the Database Table if "serverless remove" is run
   deletionPolicy: retain
