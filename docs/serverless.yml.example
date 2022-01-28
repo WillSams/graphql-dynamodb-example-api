@@ -1,15 +1,15 @@
 org: YOUR_SERVERLESS_ORG_HERE
-app: example-api-project
-service: example-api-project
+app: example-backend-api
+service: example-backend-api
 frameworkVersion: "3"
 
 custom:
-  NODE_ENV: "staging"
-  tableName: "Soccer-staging"
+  tableName: "Soccer-${self:provider.stage}"
 
 provider:
   name: aws
   runtime: nodejs14.x
+  stage: staging
   iam:
     role:
       statements:
@@ -22,7 +22,7 @@ provider:
             - dynamodb:UpdateItem
             - dynamodb:DeleteItem
           Resource:
-            - Fn::GetAtt: [SoccerTable, Arn]
+            - Fn::GetAtt: [Soccer, Arn]
   environment:
     SOCCER_TABLE: ${self:custom.tableName}
 
@@ -34,9 +34,10 @@ functions:
 
 resources:
   Resources:
-    SoccerTable:
+    Soccer:
       Type: AWS::DynamoDB::Table
       Properties:
+        TableName: ${self:custom.tableName}
         AttributeDefinitions:
           - AttributeName: Id
             AttributeType: S
@@ -75,7 +76,6 @@ resources:
             Projection:
               ProjectionType: ALL
         BillingMode: PAY_PER_REQUEST
-        TableName: ${self:custom.tableName}
 
 plugins:
   - serverless-offline
