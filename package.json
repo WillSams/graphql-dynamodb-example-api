@@ -19,13 +19,12 @@
     "uuid": "^8.3.2"
   },
   "scripts": {
-    "start": "node src/bootstrap.js",
-    "test": "NODE_ENV=test ./clean_db.sh && mocha specs/**/*.spec.js --recursive --timeout 10000",
-    "debug": "node --inspect-brk=0.0.0.0:9229 src/bootstrap.js",
-    "dev": "nodemon src/bootstrap.js",
+    "deploy": "serverless deploy --stage staging ",
+    "dev": "serverless offline start --httpPort 4040 --region localhost",
     "lint": "eslint . --ignore-pattern 'public/'",
     "lint-fix": "eslint src/**/*.js --fix",
-    "seed": "NODE_ENV=development ./clean_db.sh && node src/seed.js"
+    "seed": "NODE_ENV=development ./clean_db.sh && node src/seed.js",
+    "test": "NODE_ENV=test ./clean_db.sh && mocha specs/**/*.spec.js --recursive --timeout 10000"
   },
   "author": "",
   "license": "ISC",

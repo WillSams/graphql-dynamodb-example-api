@@ -1,11 +1,16 @@
 export NODE_ENV=development
 
-export API_PORT=4040
-export API_HOST=localhost
+# Since I'm hell bent on calling first deployed environment 'staging' instead
+# of Serverless desire to call it 'dev', this TABLE_NAME var is only checked
+# locally.  Deployed to AWS, the SOCCER_TABLE declared in serverless.yml will be used.
+export TABLE_NAME=Soccer-${NODE_ENV}
+
 export DYNAMODB_PORT=8042
 
+# these will only impact your local connection.  The Serverless 
+# defaults to the credentials of the AWS provider connected to it.
 export AWS_ACCESS_KEY_ID=
 export AWS_SECRET_ACCESS_KEY=
-export AWS_REGION=localhost
+export AWS_REGION=
 
 export TOKEN_SECRET=

@@ -34,23 +34,23 @@ nvm install lts/fermium # Node 14x because Amazon hasn't upgraded their framewor
 
 ## Getting Site Up & Running for the first time
 
-Finally, it's time to start the AP.  This can be done by executing the following (with all steps, even the ones above):
+Finally, it's time to start the application.  This can be done by executing the following:
 
 ```bash
-nvm use                   # use the version of NodeJS listed in .nvmrc
-npm i -g serverless       # installs Serverless globally to your lts/fermium install
+nvm use                         # use the version of NodeJS listed in .nvmrc
+npm i -g serverless             # installs Serverless globally to your lts/fermium install
 
-npm i                     # install the packages listed in package.json
+npm i && npm audit fix          # install the packages listed in package.json.
 
-cp docs/.envrc.example .envrc  # Set your environment variables in .envrc
+cp docs/.envrc.example .envrc   # Set your environment variables in .envrc
 direnv allow
 
-docker-compose up -d      # Spin up the DynamoDb Docker container
-npm run seed              # create and seed the Soccer-development table
+docker-compose up -d            # Spin up the DynamoDb Docker container
+npm run seed                    # create and seed the Soccer-development table
 
 cp docs/serverless.yml.example serverless.yml  # set your Serverless 'org' in severless.yml
 
-serverless login          # will open a browser
+serverless login                # will open a browser
 
 # Install the plugin to simulate AWS Lambda and API Gateway locally
 serverless plugin install -n serverless-offline                     
@@ -64,7 +64,7 @@ You can also use 'curl' in a terminal window to creat a team:
 ```bash
 curl -X POST \
 -H "Content-Type: application/json" \
--H "Authorization: bearer $API_TOKEN" \
+-H "Authorization: Bearer $TOKEN_SECRET" \
 -d '{
     "query":"mutation CreateTeam($input: CreateTeamInput!) { createTeam(input: $input) { Id Metadata TeamName Arena  } }",
     "variables": {"input":{"teamId":"test-team-1","teamName":"Test Team","arena":"Test Team Arena"}}
@@ -76,6 +76,24 @@ Which should result in:
 
 ```bash
 {"data":{"createTeam":{"Id":"test-team-1","Metadata":"Team","TeamName":"Test Team","Arena":"Test Team Arena"}}}
+```
+
+Retrieving the created team should work as well:
+
+```bash
+curl -X POST \
+-H "Content-Type: application/json" \
+-H "Authorization: Bearer $TOKEN_SECRET" \
+-d '{
+    "query":"query { team(teamId: \"test-team-1\") { Id Metadata TeamName Arena  } }"
+  }' \
+http://localhost:4040/api/graphql
+```
+
+Should present:
+
+```bash
+{"data":{"team":{"Id":"test-team-1","Metadata":"Team","TeamName":"Test Team","Arena":"Test Team Arena"}}}
 ```
 
 ## Deploying to AWS
@@ -120,7 +138,7 @@ You can create a new team by calling the corresponding endpoint:
 ```bash
 curl -X POST \
 -H "Content-Type: application/json" \
--H "Authorization: bearer $API_TOKEN" \
+-H "Authorization: Bearer $TOKEN_SECRET" \
 -d '{
     "query":"mutation CreateTeam($input: CreateTeamInput!) { createTeam(input: $input) { Id Metadata TeamName Arena  } }",
     "variables": {"input":{"teamId":"test-team-1","teamName":"Test Team","arena":"Test Team Arena"}}
@@ -132,4 +150,22 @@ Which should result in the following response:
 
 ```bash
 {"data":{"createTeam":{"Id":"test-team-1","Metadata":"Team","TeamName":"Test Team","Arena":"Test Team Arena"}}}
+```
+
+Retrieving the created team should work as well:
+
+```bash
+curl -X POST \
+-H "Content-Type: application/json" \
+-H "Authorization: Bearer $TOKEN_SECRET" \
+-d '{
+    "query":"query { team(teamId: \"test-team-1\") { Id Metadata TeamName Arena  } }"
+  }' \
+https://xxxxxx.execute-api.us-east-1.amazonaws.com/api/about
+```
+
+Should present:
+
+```bash
+{"data":{"team":{"Id":"test-team-1","Metadata":"Team","TeamName":"Test Team","Arena":"Test Team Arena"}}}
 ```

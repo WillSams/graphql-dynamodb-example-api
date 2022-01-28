@@ -9,7 +9,7 @@ const initGqlServer = async app => {
     typeDefs,
     resolvers,
     context: ({ req }) => {
-      if (!req.headers.authorization) {
+      if (req?.headers?.authorization !== `Bearer ${process.env.TOKEN_SECRET}`) {
         const message = 'You are not authorized to make requests to this API\'s GraphQL endpoints';
         throw new ApolloError(message, null);
       }
