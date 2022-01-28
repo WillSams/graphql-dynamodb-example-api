@@ -15,6 +15,7 @@ describe('Route - Queries - /api/graphql', () => {
   it('`teams` query should retrieve all teams', done => {
     chai.request(bootstrap)
       .post('/api/graphql')
+      .set({ "Authorization": `Bearer ${process.env.TOKEN_SECRET}` })
       .send({
         query: `
         query ListTeams {

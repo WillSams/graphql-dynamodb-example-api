@@ -6,8 +6,6 @@ const expect = chai.expect;
 const { teamGames } = require('../../../src/resolvers/queries');
 const { reseedDb } = require('../../../specs');
 
-chai.should();
-
 describe('Resolvers - Queries', () => {
   before(() => reseedDb());
 

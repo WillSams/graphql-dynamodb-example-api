@@ -7,7 +7,7 @@ Serverless Example API using Express JS, Apollo Server, AWS Lambda, API Gateway,
 
 _TODO_:
 
-- Write more tests.
+- Write more tests, especially early to identify change points and break down.
 - Add delete mutations
 - Utilize different types other than strings
 
@@ -39,6 +39,7 @@ Finally, it's time to start the AP.  This can be done by executing the following
 ```bash
 nvm use                   # use the version of NodeJS listed in .nvmrc
 npm i -g serverless       # installs Serverless globally to your lts/fermium install
+
 npm i                     # install the packages listed in package.json
 
 cp docs/.envrc.example .envrc  # Set your environment variables in .envrc
@@ -80,7 +81,10 @@ Which should result in:
 ## Deploying to AWS
 
 ```bash
-serverless deploy
+
+# Create an application on Serverless to hook your deployments to
+serverless --org=<YOUR SERVERLESS ORG>      # creates the app on Serverless.com, but select 'no' to deploy
+serverless deploy --stage staging           # run deploy step separately, we'll deploy to "staging".
 ```
 
 After running deploy, you should see output similar to:

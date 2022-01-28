@@ -15,6 +15,7 @@ describe('Route - Queries - /api/graphql', () => {
   it('`team` query should retrieve team', done => {
     chai.request(bootstrap)
       .post('/api/graphql')
+      .set({ "Authorization": `Bearer ${process.env.TOKEN_SECRET}` })
       .send({ query: '{ team(teamId: "test-team-1") { Id Metadata TeamName Arena } }' })
       .end((err, res) => {
         if (err) return done(err);

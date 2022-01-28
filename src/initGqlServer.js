@@ -9,7 +9,6 @@ const initGqlServer = async app => {
     typeDefs,
     resolvers,
     context: ({ req }) => {
-      console.log(JSON.stringify(req.headers))
       if (!req.headers.authorization) {
         const message = 'You are not authorized to make requests to this API\'s GraphQL endpoints';
         throw new ApolloError(message, null);
@@ -23,7 +22,7 @@ const initGqlServer = async app => {
   const apolloRegistration = {
     app,
     path: '/api/graphql',
-    cors: process.env.NODE_ENV !== 'development',
+    cors: true,
     bodyParserConfig: true,
   };
   server.applyMiddleware(apolloRegistration);

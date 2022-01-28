@@ -4,6 +4,7 @@ service: example-api-project
 frameworkVersion: "3"
 
 custom:
+  NODE_ENV: "staging"
   tableName: "Soccer-staging"
 
 provider:
