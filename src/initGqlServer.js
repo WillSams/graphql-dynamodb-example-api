@@ -1,14 +1,20 @@
 const { ApolloServer } = require('apollo-server-express');
-const { createServer } = require('http');
+const { ApolloError } = require('apollo-server-errors');
 
 const typeDefs = require('./typeDefs');
 const resolvers = require('./resolvers');
 
 const initGqlServer = async app => {
-  const httpServer = createServer(app);
   const server = new ApolloServer({
     typeDefs,
     resolvers,
+    context: ({ req }) => {
+      if (req?.headers?.authorization !== `Bearer ${process.env.TOKEN_SECRET}`) {
+        const message = 'You are not authorized to make requests to this API\'s GraphQL endpoints';
+        throw new ApolloError(message, null);
+      }
+    },
+    formatError: (err) => err.message,
   });
 
   await server.start();

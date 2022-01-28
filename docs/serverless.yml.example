@@ -1,0 +1,81 @@
+org: YOUR_SERVERLESS_ORG_HERE
+app: example-api-project
+service: example-api-project
+frameworkVersion: "3"
+
+custom:
+  NODE_ENV: "staging"
+  tableName: "Soccer-staging"
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action:
+            - dynamodb:Query
+            - dynamodb:Scan
+            - dynamodb:GetItem
+            - dynamodb:PutItem
+            - dynamodb:UpdateItem
+            - dynamodb:DeleteItem
+          Resource:
+            - Fn::GetAtt: [SoccerTable, Arn]
+  environment:
+    SOCCER_TABLE: ${self:custom.tableName}
+
+functions:
+  api:
+    handler: handler.handler
+    events:
+      - httpApi: "*"
+
+resources:
+  Resources:
+    SoccerTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        AttributeDefinitions:
+          - AttributeName: Id
+            AttributeType: S
+          - AttributeName: Metadata
+            AttributeType: S
+          - AttributeName: PlayerName
+            AttributeType: S
+          - AttributeName: GameDay
+            AttributeType: S
+        KeySchema:
+          - AttributeName: Id
+            KeyType: HASH
+          - AttributeName: Metadata
+            KeyType: RANGE
+        GlobalSecondaryIndexes:
+          - IndexName: MetadataIndex
+            KeySchema:
+              - AttributeName: Metadata
+                KeyType: HASH
+            Projection:
+              ProjectionType: ALL
+          - IndexName: MetadataGameIndex
+            KeySchema:
+              - AttributeName: Metadata
+                KeyType: HASH
+              - AttributeName: GameDay
+                KeyType: RANGE
+            Projection:
+              ProjectionType: ALL
+          - IndexName: MetadataPlayerIndex
+            KeySchema:
+              - AttributeName: Metadata
+                KeyType: HASH
+              - AttributeName: PlayerName
+                KeyType: RANGE
+            Projection:
+              ProjectionType: ALL
+        BillingMode: PAY_PER_REQUEST
+        TableName: ${self:custom.tableName}
+
+plugins:
+  - serverless-offline

@@ -16,6 +16,7 @@ describe('Route - Queries - /api/graphql', () => {
     const variables = { teamId: 'test-team-1', playerId: 'Player-123' };
     chai.request(bootstrap)
       .post('/api/graphql')
+      .set({ "Authorization": `Bearer ${process.env.TOKEN_SECRET}` })
       .send({
         query: `query GetPlayer($teamId: String!, $playerId: String!) {
             player(teamId: $teamId, playerId: $playerId) {

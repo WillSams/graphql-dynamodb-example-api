@@ -21,6 +21,7 @@ describe('Route - Mutations - /api/graphql', () => {
 
     chai.request(bootstrap)
       .post('/api/graphql')
+      .set({ "Authorization": `Bearer ${process.env.TOKEN_SECRET}` })
       .send({
         query: `mutation CreatePlayer($input: CreatePlayerInput!) {
           createPlayer(input: $input) {

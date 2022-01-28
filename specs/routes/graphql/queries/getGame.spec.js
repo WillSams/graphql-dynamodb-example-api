@@ -17,6 +17,7 @@ describe('Route - Queries - /api/graphql', () => {
   it('`game` query should retrieve game', done => {
     chai.request(bootstrap)
       .post('/api/graphql')
+      .set({ "Authorization": `Bearer ${process.env.TOKEN_SECRET}` })
       .send({
         query: `query GetGame($teamId: String!, $gameId: String!) {
           game(teamId: $teamId, gameId: $gameId) {
