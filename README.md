@@ -3,7 +3,6 @@
 Serverless Example API using Express JS, Apollo Server, and AWS (API Gateway + DynamoDb + Lambda).
 
 ![text](docs/api-1.png)
-![text](docs/api-2.png)
 
 _TODO_:
 
@@ -58,6 +57,8 @@ serverless offline start --httpPort $API_PORT --region $AWS_REGION
 ```
 
 You can now go to http://localhost:4040/api/about for a quick sanity check.
+
+![text](docs/api-2.png)
 
 You can also use 'curl' in a terminal window to creat a team:
 
@@ -117,6 +118,10 @@ functions:
   api: example-api-project-staging-api (766 kB)
 ```
 
+You can also review in your Serverless org's dashboard.
+
+![text](docs/serverless-1.png)
+
 Your API is public and can be invoked by anyone. Requiring a token in your requests will only allow authorized users to access the API.  Making requests to the example API's `/api/graphql` endpoint without the token will result in:
 
 ```bash
@@ -125,7 +130,7 @@ Your API is public and can be invoked by anyone. Requiring a token in your reque
 
 For more details, refer to [`httpApi` event docs](https://www.serverless.com/framework/docs/providers/aws/events/http-api/).
 
-### Invocation
+## Invocation
 
 After successful deployment, you can do a quick sanity check by calling:
 
@@ -169,3 +174,13 @@ Should present:
 ```bash
 {"data":{"team":{"Id":"test-team-1","Metadata":"Team","TeamName":"Test Team","Arena":"Test Team Arena"}}}
 ```
+
+## Seeding the staging Database
+
+To seed the staging database, in .envrc change the `NODE_ENV` variable to staging and plug in the access key id, access key, and region for the AWS provider account you used when creating the Serverless app/service.  Once done, execute `direnv allow` to refresh the variables within your PATH and then execute `npm run seed`.  You should see similar fake data within your [AWS Console](https://console.aws.amazon.com/dynamodbv2/home).
+
+_Note_:  This is a snippet from `MetadataPlayerIndex` results.
+
+![text](docs/dynamodb-1.png)
+
+Also, definitely review your [Lambda application](https://console.aws.amazon.com/lambda/home) and [API Gateway](https://console.aws.amazon.com/apigateway/main) integration as well.
