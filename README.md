@@ -6,7 +6,7 @@ Serverless Example API using Express JS, Apollo Server, and AWS (API Gateway + D
 
 _TODO_:
 
-- Write more tests, especially early to identify change points and break down.
+- Write more tests, especially early to identify change points.
 - Add delete mutations
 - Utilize different types other than strings
 
