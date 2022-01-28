@@ -175,7 +175,7 @@ Should present:
 {"data":{"team":{"Id":"test-team-1","Metadata":"Team","TeamName":"Test Team","Arena":"Test Team Arena"}}}
 ```
 
-## Seeding the staging Database
+## Seeding the Remote Staging Table
 
 To seed the staging database, in .envrc change the `NODE_ENV` variable to staging and plug in the access key id, access key, and region for the AWS provider account you used when creating the Serverless app/service.  Once done, execute `direnv allow` to refresh the variables within your PATH and then execute `npm run seed`.  You should see similar fake data within your [AWS Console](https://console.aws.amazon.com/dynamodbv2/home).
 
