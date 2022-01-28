@@ -8,7 +8,6 @@ Serverless Example API using Express JS, Apollo Server, AWS Lambda, API Gateway,
 _TODO_:
 
 - Write more tests.
-- Add token-based authentication.
 - Add delete mutations
 - Utilize different types other than strings
 
@@ -21,12 +20,6 @@ The installation instructions are targeting Debian-based distros (Ubuntu, Linux 
 - Install [NodeJS](https://nodejs.org/en/download/).
 - Install [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html).
 - For deployments to AWS, a [Serverless account](https://app.serverless.com/).
-
-```bash
-cp .envrc.example .envrc && direnv allow
-```
-
-The base file should get you started but the following instructions should be followed to correctly get the environment variables set.
 
 ### Installing Node Version Manager (NVM)
 
@@ -102,7 +95,13 @@ functions:
   api: example-api-project-staging-api (766 kB)
 ```
 
-_Note_: In current form, after deployment, your API is public and can be invoked by anyone. For production deployments, you might want to configure an authorizer. For details on how to do that, refer to [`httpApi` event docs](https://www.serverless.com/framework/docs/providers/aws/events/http-api/). Additionally, in current configuration, the DynamoDB table will be removed when running `serverless remove`. To retain the DynamoDB table even after removal of the stack, add `DeletionPolicy: Retain` to its resource definition.
+Your API is public and can be invoked by anyone. Requiring a token in your requests will only allow authorized users to access the API.  Making requests to the example API's `/api/graphql` endpoint without the token will result in:
+
+```bash
+{"errors":["Context creation failed: You are not authorized to make requests to this API's GraphQL endpoints."]}
+```
+
+For more details, refer to [`httpApi` event docs](https://www.serverless.com/framework/docs/providers/aws/events/http-api/).
 
 ### Invocation
 
