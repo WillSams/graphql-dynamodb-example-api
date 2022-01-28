@@ -6,6 +6,8 @@ const config = {
   region: process.env.AWS_REGION
 };
 
+console.log(JSON.stringify(config))
+
 if (process.env.NODE_ENV !== 'production' || process.env.NODE_ENV !== 'staging')
   Object.assign(config, { endpoint: `http://localhost:${process.env.DYNAMODB_PORT}` });
 

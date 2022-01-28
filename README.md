@@ -6,10 +6,10 @@ Example API using Express JS, Apollo Server, and Local Amazon DynamoDb.
 ![text](api-2.png)
 
 TODO:
+
 - Write more tests.
 - Add token-based authentication.
 - Add CI/CD w/ CircleCI.
-- Create deployment container and ship it AWS Elastic Container Registry.
 - Add delete mutations
 - Utilize different types other than strings
 
@@ -21,12 +21,14 @@ The installation instructions are targeting Debian-based distros (Ubuntu, Linux 
 - Install [Docker](https://www.docker.com).
 - Install [NodeJS](https://nodejs.org/en/download/).
 - Install [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html).
+- A [Serverless account](https://app.serverless.com/).
 
 Note:  Once `direnv` is install, it's best to begin populating the `.envrc` file before moving forward.
 
 ```bash
 cp .envrc.example .envrc && direnv allow
 ```
+
 
 The base file should get you started but the following instructions should be followed to correctly get the environment variables set.
 
@@ -38,7 +40,7 @@ echo 'export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"' >> ~/.bashrc
 source ~/.bashrc
-nvm install lts/* 
+nvm install lts/fermium # Node 14x because Amazon hasn't upgraded their framework yet :( 
 ```
 
 ### Working with the DynamoDB Docker Container for Development
@@ -74,7 +76,17 @@ aws dynamodb query \
 Finally, it's time to start the AP.  This can be done by executing the following:
 
 ```bash
-nvm use                  # use the version of NodeJS listed in .nvmrc
-npm i                    # install the packages listed in package.json
-npm run start            # starts executing website on http://localhost:$PORT
+nvm use                   # use the version of NodeJS listed in .nvmrc
+npm i -g serverless       # installs Serverless globally to your lts/fermium install
+npm i                     # install the packages listed in package.json
+
+serverless login          # will open a browser
+
+# Install the plugin to simulate AWS Lambda and API Gateway locally
+serverless plugin install -n serverless-offline                     
+serverless offline start --httpPort $API_PORT --region $AWS_REGION
 ```
+
+You can now go to http://localhost:4040/api/about for a quick sanity check.
+
+## Deploying to AWS

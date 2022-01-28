@@ -1,0 +1,61 @@
+version: 2.1
+
+jobs:
+  test_frontend:
+    working_directory: ~/code
+    docker:
+      - image: cimg/node:16.13.1
+        environment:
+          NODE_ENV: test
+        auth:
+          username: $DOCKERHUB_USER
+          password: $DOCKERHUB_PASSWORD
+    steps:
+      - checkout
+      - run:
+          name: Update npm
+          command: "sudo npm i -g npm@latest"
+      - restore_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
+      - run:
+          name: Install npm
+          working_directory: ~/code/frontend
+          command: "npm ci --unsafe-perm" #npm ci --only=production
+      - save_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
+          paths:
+            - node_modules
+      - run:
+          name: Test Frontend
+          working_directory: ~/code/frontend
+          command: "npm run test"
+  test_backend:
+    working_directory: ~/code
+    docker:
+      - image: cimg/node:16.13.1
+        environment:
+          NODE_ENV: test
+        auth:
+          username: $DOCKERHUB_USER
+          password: $DOCKERHUB_PASSWORD
+    steps:
+      - checkout
+      - restore_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
+      - run:
+          name: Install npm
+          working_directory: ~/code/backend
+          command: "npm ci"
+      - save_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
+          paths:
+            - node_modules
+      - run:
+          name: Test Backend
+          working_directory: ~/code/backend
+          command: "npm run test"
+workflows:
+  build_and_test:
+    jobs:
+      - test_frontend
+      - test_backend

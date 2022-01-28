@@ -13,8 +13,6 @@ inputs:
       AttributeType: S
     - AttributeName: Metadata
       AttributeType: S
-    - AttributeName: TeamName
-      AttributeType: S
     - AttributeName: PlayerName
       AttributeType: S
     - AttributeName: GameDay
