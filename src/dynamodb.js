@@ -1,14 +1,14 @@
 const AWS = require('aws-sdk');
 
+const { getHostDomain } = require('./utils/server');
+
 const config = {
   keyId: process.env.AWS_ACCESS_KEY_ID,
   accessKey: process.env.AWS_SECRET_ACCESS_KEY,
   region: process.env.AWS_REGION
 };
 
-console.log(JSON.stringify(config))
-
-if (process.env.NODE_ENV !== 'production' || process.env.NODE_ENV !== 'staging')
+if (getHostDomain() === 'localhost')
   Object.assign(config, { endpoint: `http://localhost:${process.env.DYNAMODB_PORT}` });
 
 AWS.config.update(config);

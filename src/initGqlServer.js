@@ -1,11 +1,9 @@
 const { ApolloServer } = require('apollo-server-express');
-const { createServer } = require('http');
 
 const typeDefs = require('./typeDefs');
 const resolvers = require('./resolvers');
 
 const initGqlServer = async app => {
-  const httpServer = createServer(app);
   const server = new ApolloServer({
     typeDefs,
     resolvers,
@@ -16,7 +14,7 @@ const initGqlServer = async app => {
   const apolloRegistration = {
     app,
     path: '/api/graphql',
-    cors: true,
+    cors: process.env.NODE_ENV !== 'development',
     bodyParserConfig: true,
   };
   server.applyMiddleware(apolloRegistration);

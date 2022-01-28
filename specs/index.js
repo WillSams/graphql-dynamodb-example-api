@@ -43,7 +43,7 @@ const games = [
 
 const removeDbTestData = () => {
   sleep(1);
-  spawn(`${__dirname}/clean_db.sh`);
+  spawn(`${__dirname}/../clean_db.sh`);
   sleep(1);
 };
 

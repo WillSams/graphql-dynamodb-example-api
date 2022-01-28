@@ -1,10 +1,10 @@
-org: samswebs
-app: example-api
-service: aws-node-express-dynamodb-api
+org: YOUR_SERVERLESS_ORG_HERE
+app: example-api-project
+service: example-api-project
 frameworkVersion: "3"
 
 custom:
-  tableName: "Soccer-${sls:stage}"
+  tableName: "Soccer-staging"
 
 provider:
   name: aws
