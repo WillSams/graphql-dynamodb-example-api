@@ -2,8 +2,8 @@
 
 Serverless Example API using Express JS, Apollo Server, AWS Lambda, API Gateway, and DynamoDb.
 
-![text](api-1.png)
-![text](api-2.png)
+![text](docs/api-1.png)
+![text](docs/api-2.png)
 
 _TODO_:
 
@@ -48,13 +48,13 @@ nvm use                   # use the version of NodeJS listed in .nvmrc
 npm i -g serverless       # installs Serverless globally to your lts/fermium install
 npm i                     # install the packages listed in package.json
 
-cp .envrc.example .envrc  # Set your environment variables in .envrc
+cp docs/.envrc.example .envrc  # Set your environment variables in .envrc
 direnv allow
 
 docker-compose up -d      # Spin up the DynamoDb Docker container
 npm run seed              # create and seed the Soccer-development table
 
-cp serverless.yml.example serverless.yml  # set your Serverless 'org' in severless.yml
+cp docs/serverless.yml.example serverless.yml  # set your Serverless 'org' in severless.yml
 
 serverless login          # will open a browser
 
