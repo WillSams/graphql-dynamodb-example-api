@@ -1,6 +1,6 @@
 # Example Serverless JavaScript API
 
-Serverless Example API using Express JS, Apollo Server, AWS Lambda, API Gateway, and DynamoDb.
+Serverless Example API using Express JS, Apollo Server, and AWS (API Gateway + DynamoDb + Lambda).
 
 ![text](docs/api-1.png)
 ![text](docs/api-2.png)
