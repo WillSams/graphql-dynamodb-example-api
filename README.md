@@ -143,7 +143,7 @@ curl -X POST \
     "query":"mutation CreateTeam($input: CreateTeamInput!) { createTeam(input: $input) { Id Metadata TeamName Arena  } }",
     "variables": {"input":{"teamId":"test-team-1","teamName":"Test Team","arena":"Test Team Arena"}}
   }' \
-https://xxxxxx.execute-api.us-east-1.amazonaws.com/api/about
+https://xxxxxx.execute-api.us-east-1.amazonaws.com/api/graphql
 ```
 
 Which should result in the following response:
@@ -161,7 +161,7 @@ curl -X POST \
 -d '{
     "query":"query { team(teamId: \"test-team-1\") { Id Metadata TeamName Arena  } }"
   }' \
-https://xxxxxx.execute-api.us-east-1.amazonaws.com/api/about
+https://xxxxxx.execute-api.us-east-1.amazonaws.com/api/graphql
 ```
 
 Should present:
