@@ -25,6 +25,7 @@ provider:
             - Fn::GetAtt: [Soccer, Arn]
   environment:
     SOCCER_TABLE: ${self:custom.tableName}
+    TOKEN_SECRET: YOUR_SECRET_TOKEN_HERE
 
 functions:
   api:
