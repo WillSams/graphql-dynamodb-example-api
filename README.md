@@ -47,7 +47,7 @@ direnv allow
 docker-compose up -d            # Spin up the DynamoDb Docker container
 npm run seed                    # create and seed the Soccer-development table
 
-cp docs/serverless.yml.example serverless.yml  # set your Serverless 'org' in severless.yml
+cp docs/serverless.yml.example serverless.yml  # IMPORTANT! Edit file and set your Serverless 'org' and your TOKEN_SECRET
 
 serverless login                # will open a browser
 
