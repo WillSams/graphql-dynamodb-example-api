@@ -11,9 +11,9 @@ describe('Resolvers - Queries', () => {
 
   const params = { teamId: 'test-team-1' };
 
-  it('`teamPlayers` query should retrieve players for given team', async () => {
-    const result = await teamPlayers(null, { ...params });
-
-    expect(result.length).to.equal(2);
+  it('`teamPlayers` query should retrieve players for given team', () => {
+    teamPlayers(null, { ...params }).then(result => {
+      expect(result.length).to.equal(2);
+    });
   });
 });

@@ -13,19 +13,20 @@ describe('Resolvers - Queries', () => {
 
   const params = { teamId: 'test-team-3' };
 
-  it('`team` query should retrieve team', async () => {
-    const result = await team(null, { ...params }).then(data => data);
+  it('`team` query should retrieve team', () => {
+    team(null, { ...params }).then(result => {
 
-    result.should.have.property('Id');
-    expect(result.Id).to.equal(params.teamId);
+      result.should.have.property('Id');
+      expect(result.Id).to.equal(params.teamId);
 
-    result.should.have.property('Metadata');
-    expect(result.Metadata).to.equal('Team');
+      result.should.have.property('Metadata');
+      expect(result.Metadata).to.equal('Team');
 
-    result.should.have.property('TeamName');
-    expect(result.TeamName).to.equal('Test Team 3');
+      result.should.have.property('TeamName');
+      expect(result.TeamName).to.equal('Test Team 3');
 
-    result.should.have.property('Arena');
-    expect(result.Arena).to.equal('Test Team 3 Arena');
+      result.should.have.property('Arena');
+      expect(result.Arena).to.equal('Test Team 3 Arena');
+    });
   });
 });

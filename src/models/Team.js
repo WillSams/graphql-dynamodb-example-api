@@ -1,34 +1,28 @@
-const tableName = `${process?.env?.TABLE_NAME || process.env.SOCCER_TABLE}`;
+const { soccerTableName } = require('../utils/server');
 
-const Team = {
-  get: ({ teamId }) => {
-    return {
-      TableName: tableName,
-      Key: {
-        Id: teamId,
-        Metadata: 'Team',
-      }
-    };
-  },
-  put: ({ teamId, teamName, arena }) => {
-    return {
-      TableName: tableName,
-      Item: {
-        Id: teamId,
-        Metadata: 'Team',
-        TeamName: teamName,
-        Arena: arena,
-      },
-    };
-  },
-  queryAll: {
-    TableName: tableName,
-    IndexName: 'MetadataIndex',
-    ProjectionExpression: 'Id, Metadata, TeamName, Arena',
-    ExpressionAttributeNames: { '#p': 'Metadata' },
-    KeyConditionExpression: '#p = :v1',
-    ExpressionAttributeValues: { ':v1': 'Team' }
-  },
-};
+exports.get = ({ teamId }) => ({
+  TableName: soccerTableName,
+  Key: {
+    Id: teamId,
+    Metadata: 'Team',
+  }
+});
 
-module.exports = Team;
+exports.put = ({ teamId, teamName, arena }) => ({
+  TableName: soccerTableName,
+  Item: {
+    Id: teamId,
+    Metadata: 'Team',
+    TeamName: teamName,
+    Arena: arena,
+  },
+});
+
+exports.queryAll = ({
+  TableName: soccerTableName,
+  IndexName: 'MetadataIndex',
+  ProjectionExpression: 'Id, Metadata, TeamName, Arena',
+  ExpressionAttributeNames: { '#p': 'Metadata' },
+  KeyConditionExpression: '#p = :v1',
+  ExpressionAttributeValues: { ':v1': 'Team' }
+});

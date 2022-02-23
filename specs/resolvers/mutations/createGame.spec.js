@@ -15,20 +15,21 @@ describe('Resolvers - Mutation', () => {
     winLoss: 'Loss'
   };
 
-  it('`createGame` mutation should create game', async () => {
-    const result = await createGame(null, { input: { ...params } })
-      .then(data => data);
+  it('`createGame` mutation should create game', () => {
+    createGame(null, { input: { ...params } })
+      .then(result => {
 
-    result.should.have.property('Id');
-    expect(result.Id).to.equal(params.teamId);
+        result.should.have.property('Id');
+        expect(result.Id).to.equal(params.teamId);
 
-    result.should.have.property('Metadata');
-    expect(result.Metadata).to.equal(params.gameId);
+        result.should.have.property('Metadata');
+        expect(result.Metadata).to.equal(params.gameId);
 
-    result.should.have.property('GameDay');
-    expect(result.GameDay).to.equal(params.gameDay);
+        result.should.have.property('GameDay');
+        expect(result.GameDay).to.equal(params.gameDay);
 
-    result.should.have.property('WinLoss');
-    expect(result.WinLoss).to.equal(params.winLoss);
+        result.should.have.property('WinLoss');
+        expect(result.WinLoss).to.equal(params.winLoss);
+      });
   });
 });
