@@ -22,19 +22,19 @@ describe('Route - Queries - /api/graphql', () => {
 
         expect(res.status).to.equal(200);
 
-        const data = res?.body?.data;
+        const result = res?.body?.data?.team;
 
-        data.team.should.have.property('Id');
-        expect(data.team.Id).to.equal('test-team-1');
+        result.should.have.property('Id');
+        expect(result.Id).to.equal('test-team-1');
 
-        data.team.should.have.property('Metadata');
-        expect(data.team.Metadata).to.equal('Team');
+        result.should.have.property('Metadata');
+        expect(result.Metadata).to.equal('Team');
 
-        data.team.should.have.property('TeamName');
-        expect(data.team.TeamName).to.equal('Test Team 1');
+        result.should.have.property('TeamName');
+        expect(result.TeamName).to.equal('Test Team 1');
 
-        data.team.should.have.property('Arena');
-        expect(data.team.Arena).to.equal('Test Team 1 Arena');
+        result.should.have.property('Arena');
+        expect(result.Arena).to.equal('Test Team 1 Arena');
 
         done();
       });

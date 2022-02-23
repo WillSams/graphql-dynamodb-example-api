@@ -34,9 +34,9 @@ describe('Route - Queries - /api/graphql', () => {
 
         res.headers['content-type'].should.contains('application/json');
 
-        const data = res?.body?.data;
+        const result = res?.body?.data?.teams;
 
-        expect(data.teams.length).to.equal(3);
+        expect(result.length).to.equal(3);
 
         done();
       });

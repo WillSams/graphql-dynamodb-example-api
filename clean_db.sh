@@ -1,18 +1,18 @@
 #!/bin/sh
 
-TABLE_NAME=Soccer-${NODE_ENV}
+SOCCER_TABLE=Soccer-${NODE_ENV}
 
 # Delete table if it already exists
 aws dynamodb delete-table \
     --endpoint-url http://localhost:8042 \
-    --table-name $TABLE_NAME \
+    --table-name $SOCCER_TABLE \
     --profile localhost-user \
     --region localhost
 
 # Creates the table
 aws dynamodb create-table \
     --endpoint-url http://localhost:8042 \
-    --table-name $TABLE_NAME \
+    --table-name $SOCCER_TABLE \
     --attribute-definitions \
         AttributeName=Id,AttributeType=S \
         AttributeName=Metadata,AttributeType=S \

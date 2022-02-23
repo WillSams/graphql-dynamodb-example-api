@@ -16,19 +16,21 @@ describe('Resolvers - Mutation', () => {
     position: 'S'
   };
 
-  it('`createPlayer` mutation should create player', async () => {
-    const result = await createPlayer(null, { input: { ...params } }).then(data => data);
+  it('`createPlayer` mutation should create player', () => {
+    createPlayer(null, { input: { ...params } })
+      .then(result => {
 
-    result.should.have.property('Id');
-    expect(result.Id).to.equal(params.teamId);
+        result.should.have.property('Id');
+        expect(result.Id).to.equal(params.teamId);
 
-    result.should.have.property('Metadata');
-    expect(result.Metadata).to.equal(params.playerId);
+        result.should.have.property('Metadata');
+        expect(result.Metadata).to.equal(params.playerId);
 
-    result.should.have.property('PlayerName');
-    expect(result.PlayerName).to.equal(params.playerName);
+        result.should.have.property('PlayerName');
+        expect(result.PlayerName).to.equal(params.playerName);
 
-    result.should.have.property('Position');
-    expect(result.Position).to.equal(params.position);
+        result.should.have.property('Position');
+        expect(result.Position).to.equal(params.position);
+      });
   });
 });

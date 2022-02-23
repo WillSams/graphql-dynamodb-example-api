@@ -9,9 +9,9 @@ const { reseedDb } = require('../../../specs');
 describe('Resolvers - Queries', () => {
   before(() => reseedDb());
 
-  it('`teams` query should retrieve all teams', async () => {
-    const result = await teams(null);
-
-    expect(result.length).to.equal(3);
+  it('`teams` query should retrieve all teams', () => {
+    teams(null).then(result => {
+      expect(result.length).to.equal(3);
+    });
   });
 });

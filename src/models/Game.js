@@ -1,34 +1,26 @@
-const tableName = `${process?.env?.TABLE_NAME || process.env.SOCCER_TABLE}`;
+const { soccerTableName } = require('../utils/server');
 
-const Game = {
-  get: ({ teamId, gameId }) => {
-    return {
-      TableName: tableName,
-      IndexName: 'MetadataIndex',
-      ExpressionAttributeNames: { '#p': 'Metadata', '#a': 'Id' },
-      KeyConditionExpression: '#p = :v1',
-      FilterExpression: '#a = :v2',
-      ExpressionAttributeValues: { ':v1': gameId, ':v2': teamId }
-    };
-  },
-  queryByTeam: ({ teamId }) => {
-    return {
-      TableName: tableName,
-      KeyConditionExpression: 'Id = :v1 and begins_with(Metadata, :v2)',
-      ExpressionAttributeValues: { ':v1': teamId, ':v2': 'Game' }
-    };
-  },
-  put: ({ teamId, gameId, gameDay, winLoss }) => {
-    return {
-      TableName: tableName,
-      Item: {
-        Id: teamId,
-        Metadata: gameId,
-        GameDay: gameDay,
-        WinLoss: winLoss,
-      }
-    };
-  },
-};
+exports.get = ({ teamId, gameId }) => ({
+  TableName: soccerTableName,
+  IndexName: 'MetadataIndex',
+  ExpressionAttributeNames: { '#p': 'Metadata', '#a': 'Id' },
+  KeyConditionExpression: '#p = :v1',
+  FilterExpression: '#a = :v2',
+  ExpressionAttributeValues: { ':v1': gameId, ':v2': teamId }
+});
 
-module.exports = Game;
+exports.queryByTeam = ({ teamId }) => ({
+  TableName: soccerTableName,
+  KeyConditionExpression: 'Id = :v1 and begins_with(Metadata, :v2)',
+  ExpressionAttributeValues: { ':v1': teamId, ':v2': 'Game' }
+});
+
+exports.put = ({ teamId, gameId, gameDay, winLoss }) => ({
+  TableName: soccerTableName,
+  Item: {
+    Id: teamId,
+    Metadata: gameId,
+    GameDay: gameDay,
+    WinLoss: winLoss,
+  }
+});

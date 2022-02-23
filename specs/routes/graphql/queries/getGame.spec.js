@@ -36,19 +36,19 @@ describe('Route - Queries - /api/graphql', () => {
 
         res.headers['content-type'].should.contains('application/json');
 
-        const data = res?.body?.data;
+        const result = res?.body?.data?.game;
 
-        data.game.should.have.property('Id');
-        expect(data.game.Id).to.equal(variables.teamId);
+        result.should.have.property('Id');
+        expect(result.Id).to.equal(variables.teamId);
 
-        data.game.should.have.property('Metadata');
-        expect(data.game.Metadata).to.equal(variables.gameId);
+        result.should.have.property('Metadata');
+        expect(result.Metadata).to.equal(variables.gameId);
 
-        data.game.should.have.property('GameDay');
-        expect(data.game.GameDay).to.equal('Jan-17-2022');
+        result.should.have.property('GameDay');
+        expect(result.GameDay).to.equal('Jan-17-2022');
 
-        data.game.should.have.property('WinLoss');
-        expect(data.game.WinLoss).to.equal('Loss');
+        result.should.have.property('WinLoss');
+        expect(result.WinLoss).to.equal('Loss');
 
         done();
       });
